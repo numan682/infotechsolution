@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# InfoTech Solution — infotechsolution.site
 
-## Getting Started
+Static Next.js 16 marketing site for InfoTech Solution, an IT company and digital agency in Bangladesh.
+Built with Tailwind CSS v4, Motion (scroll and entrance animations) and Lenis (smooth scroll).
 
-First, run the development server:
+## Develop
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Build & deploy to cPanel (shared hosting)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build      # outputs the static site to ./out
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Open cPanel → **File Manager** → `public_html`.
+2. Upload **the contents** of `out/` (not the folder itself), including the hidden `.htaccess`.
+   Tip: zip the contents of `out/`, upload the zip, then use **Extract**.
+3. In cPanel → **Email Accounts**, create `noreply@infotechsolution.site` so the contact form can send mail.
+4. Turn on SSL (cPanel → **SSL/TLS Status** → AutoSSL). `.htaccess` forces HTTPS and redirects `www` to the bare domain.
+5. Submit `https://infotechsolution.site/sitemap.xml` in Google Search Console.
 
-## Learn More
+`npm run build` also runs `scripts/postbuild.mjs`, which fixes Next.js prefetch filenames when you build on Windows.
 
-To learn more about Next.js, take a look at the following resources:
+## Edit content
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| What | File |
+| --- | --- |
+| Company name, email, phone, WhatsApp, address, socials, stats | `src/lib/site.ts` |
+| Services and their detail pages (one page per entry) | `src/lib/services.ts` |
+| Portfolio projects, process steps, FAQ, tech stack, values | `src/lib/content.ts` |
+| Company timeline | `src/app/about/page.tsx` |
+| Contact form recipient | `public/contact.php` (`$TO_EMAIL`) |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+> Before launch, replace the placeholder address, stats and timeline, and add a WhatsApp number (buttons stay hidden until set)
+> They are marked with `TODO` comments.
 
-## Deploy on Vercel
+## SEO
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Each page has its own title, description and canonical URL, plus Open Graph and Twitter cards and a generated
+social image. JSON-LD structured data covers Organization/ProfessionalService, WebSite, Service, FAQPage and
+BreadcrumbList. The build also generates `sitemap.xml`, `robots.txt` and a web manifest.
