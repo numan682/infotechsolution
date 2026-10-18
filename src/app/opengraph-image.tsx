@@ -1,8 +1,9 @@
 import { ImageResponse } from "next/og";
 import { site } from "@/lib/site";
+import en from "@/content/en";
 
 export const dynamic = "force-static";
-export const alt = `${site.name}: IT Company & Digital Agency in Bangladesh`;
+export const alt = en.meta.ogAlt;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -17,8 +18,8 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 72,
-          background: "#000",
-          color: "white",
+          background: "#ffffff",
+          color: "#1c1410",
           fontFamily: "sans-serif",
           position: "relative",
         }}
@@ -26,34 +27,27 @@ export default function OpengraphImage() {
         <div
           style={{
             position: "absolute",
-            top: -200,
-            right: -150,
-            width: 700,
-            height: 700,
+            top: -260,
+            right: -200,
+            width: 820,
+            height: 820,
             borderRadius: 9999,
-            background: "radial-gradient(circle, rgba(124,58,237,0.65), rgba(0,0,0,0) 70%)",
+            background: "radial-gradient(circle, rgba(255,107,0,0.55), rgba(255,255,255,0) 70%)",
           }}
         />
         <div
           style={{
             position: "absolute",
-            bottom: -260,
-            left: -120,
+            bottom: -300,
+            left: -160,
             width: 700,
             height: 700,
             borderRadius: 9999,
-            background: "radial-gradient(circle, rgba(0,113,227,0.6), rgba(0,0,0,0) 70%)",
+            background: "radial-gradient(circle, rgba(255,166,43,0.45), rgba(255,255,255,0) 70%)",
           }}
         />
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-          <div
-            style={{
-              width: 64,
-              height: 64,
-              borderRadius: 18,
-              background: "linear-gradient(135deg, #0071e3, #7c3aed 55%, #ec4899)",
-            }}
-          />
+          <div style={{ width: 64, height: 64, borderRadius: 18, background: "linear-gradient(135deg, #ffa62b, #ff6b00 50%, #f43f1a)" }} />
           <div style={{ fontSize: 34, fontWeight: 700, letterSpacing: -1 }}>{site.name}</div>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -64,16 +58,14 @@ export default function OpengraphImage() {
               fontWeight: 800,
               letterSpacing: -4,
               lineHeight: 1.02,
-              backgroundImage: "linear-gradient(90deg, #38bdf8, #a78bfa, #f472b6)",
+              backgroundImage: "linear-gradient(90deg, #ff8a00, #ff5a00, #ff3d3d)",
               backgroundClip: "text",
               color: "transparent",
             }}
           >
             engineered to move you.
           </div>
-          <div style={{ fontSize: 30, color: "#a1a1aa", marginTop: 28 }}>
-            Web · Mobile Apps · Software · Cloud · SEO · AI — from Dhaka, Bangladesh
-          </div>
+          <div style={{ fontSize: 30, color: "#75665c", marginTop: 28 }}>Web · Apps · Software · GPS Tracking · SEO · AI — Dhaka, Bangladesh</div>
         </div>
       </div>
     ),

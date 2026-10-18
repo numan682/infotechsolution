@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/lib/site";
+import en from "@/content/en";
 
 export const dynamic = "force-static";
 
@@ -7,14 +8,14 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: site.name,
     short_name: site.shortName,
-    description: site.description,
+    description: en.meta.description,
     start_url: "/",
     display: "standalone",
-    background_color: "#fbfbfd",
-    theme_color: "#0071e3",
+    background_color: "#ffffff",
+    theme_color: "#ff6b00",
     icons: [
       { src: "/icon.svg", sizes: "any", type: "image/svg+xml" },
-      { src: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+      { src: "/apple-icon", sizes: "180x180", type: "image/png" },
     ],
   };
 }

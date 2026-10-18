@@ -32,6 +32,7 @@ const bn: Dict = {
     servicesMenuPromoTitle: "কোথা থেকে শুরু করবেন বুঝতে পারছেন না?",
     servicesMenuPromoBody: "ফ্রি কনসালটেশন বুক করুন, ২৪ ঘণ্টার মধ্যে পেয়ে যান পরিষ্কার রোডম্যাপ।",
     language: "ভাষা",
+    email: "ইমেইল",
   },
 
   common: {

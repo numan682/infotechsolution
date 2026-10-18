@@ -1,13 +1,16 @@
 # InfoTech Solution — infotechsolution.site
 
-Static Next.js 16 marketing site for InfoTech Solution, an IT company and digital agency in Bangladesh.
+Bilingual (English + বাংলা) static Next.js 16 site for InfoTech Solution, an IT company and digital agency in Dhaka, Bangladesh.
 Built with Tailwind CSS v4, Motion (scroll and entrance animations) and Lenis (smooth scroll).
+
+- English lives at `/`, Bangla at `/bn/`. Every page has both versions, linked with `hreflang` for SEO.
+- The header's **EN | বাং** switch jumps to the same page in the other language.
 
 ## Develop
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000
+npm run dev        # http://localhost:3000  (Bangla: /bn/)
 ```
 
 ## Build & deploy to cPanel (shared hosting)
@@ -19,27 +22,31 @@ npm run build      # outputs the static site to ./out
 1. Open cPanel → **File Manager** → `public_html`.
 2. Upload **the contents** of `out/` (not the folder itself), including the hidden `.htaccess`.
    Tip: zip the contents of `out/`, upload the zip, then use **Extract**.
-3. In cPanel → **Email Accounts**, create `noreply@infotechsolution.site` so the contact form can send mail.
-4. Turn on SSL (cPanel → **SSL/TLS Status** → AutoSSL). `.htaccess` forces HTTPS and redirects `www` to the bare domain.
-5. Submit `https://infotechsolution.site/sitemap.xml` in Google Search Console.
+3. Turn on SSL (cPanel → **SSL/TLS Status** → AutoSSL). `.htaccess` forces HTTPS and redirects `www` to the bare domain.
+4. Submit `https://infotechsolution.site/sitemap.xml` in Google Search Console.
 
 `npm run build` also runs `scripts/postbuild.mjs`, which fixes Next.js prefetch filenames when you build on Windows.
+
+The contact form needs no server: it opens the visitor's email app with a pre-filled message to the address in `src/lib/site.ts`.
 
 ## Edit content
 
 | What | File |
 | --- | --- |
-| Company name, email, phone, WhatsApp, address, socials, stats | `src/lib/site.ts` |
-| Services and their detail pages (one page per entry) | `src/lib/services.ts` |
-| Portfolio projects, process steps, FAQ, tech stack, values | `src/lib/content.ts` |
-| Company timeline | `src/app/about/page.tsx` |
-| Contact form recipient | `public/contact.php` (`$TO_EMAIL`) |
+| Phone, email, address, WhatsApp, socials, stat numbers | `src/lib/site.ts` |
+| All English text (pages, services, projects, FAQ, form) | `src/content/en.ts` |
+| All Bangla text (same structure) | `src/content/bn.ts` |
+| Service icons, colours, tech stacks | `src/lib/services.ts` |
+| Portfolio links and colours | `src/lib/content.ts` |
 
-> Before launch, replace the placeholder address, stats and timeline, and add a WhatsApp number (buttons stay hidden until set)
-> They are marked with `TODO` comments.
+To add a project: add an entry to `projectMeta` in `src/lib/content.ts`, then its text under the same id in both
+`en.ts` and `bn.ts`. Services work the same way with `serviceMeta` and the `services` section of each language file.
+
+> Before launch: confirm the stat numbers and company timeline, check the social profile links, and add a WhatsApp
+> number if you want WhatsApp buttons (they stay hidden until set). Look for `TODO` comments.
 
 ## SEO
 
-Each page has its own title, description and canonical URL, plus Open Graph and Twitter cards and a generated
-social image. JSON-LD structured data covers Organization/ProfessionalService, WebSite, Service, FAQPage and
-BreadcrumbList. The build also generates `sitemap.xml`, `robots.txt` and a web manifest.
+Each page in each language has its own title, description and canonical URL, `hreflang` alternates, Open Graph and
+Twitter cards and a generated social image. JSON-LD covers Organization/ProfessionalService, WebSite, Service,
+FAQPage and BreadcrumbList. The build generates `sitemap.xml` (with language alternates), `robots.txt` and a web manifest.

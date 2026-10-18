@@ -32,6 +32,7 @@ const en = {
     servicesMenuPromoTitle: "Not sure where to start?",
     servicesMenuPromoBody: "Book a free consultation and get a clear roadmap within 24 hours.",
     language: "Language",
+    email: "Email",
   },
 
   common: {

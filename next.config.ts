@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   images: { unoptimized: true },
   poweredByHeader: false,
+  experimental: {
+    // English (app/(en)) and Bangla (app/bn) each have their own root layout,
+    // so the site-wide 404 lives in app/global-not-found.tsx.
+    globalNotFound: true,
+  },
   turbopack: {
     rules: {
       "*.css": {

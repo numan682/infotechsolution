@@ -1,4 +1,6 @@
 import { site } from "@/lib/site";
+import { fill, getDict } from "@/content";
+import type { Lang } from "@/i18n/config";
 
 const icons = {
   facebook: (
@@ -15,7 +17,8 @@ const icons = {
 
 const labels = { facebook: "Facebook", linkedin: "LinkedIn", x: "X (Twitter)", github: "GitHub" } as const;
 
-export function SocialIcons({ className = "" }: { className?: string }) {
+export function SocialIcons({ className = "", lang }: { className?: string; lang: Lang }) {
+  const t = getDict(lang).footer;
   return (
     <ul className={`flex gap-2 ${className}`}>
       {(Object.keys(icons) as (keyof typeof icons)[]).map((k) => (
@@ -24,8 +27,8 @@ export function SocialIcons({ className = "" }: { className?: string }) {
             href={site.socials[k]}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`${site.name} on ${labels[k]}`}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.07] text-neutral-300 transition-all duration-300 hover:-translate-y-0.5 hover:bg-white hover:text-ink"
+            aria-label={fill(t.socialOn, { name: site.name, network: labels[k] })}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-white/[0.07] text-neutral-300 transition-all duration-300 hover:-translate-y-0.5 hover:bg-accent hover:text-white"
           >
             <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="currentColor" aria-hidden>
               {icons[k]}

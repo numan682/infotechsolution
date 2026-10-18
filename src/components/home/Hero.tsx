@@ -4,19 +4,22 @@ import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "mo
 import Link from "next/link";
 import { useRef } from "react";
 import { ArrowRight, Sparkles } from "lucide-react";
+import type { Dict } from "@/content";
 import { SplitText } from "@/components/ui/SplitText";
 import { Magnetic } from "@/components/ui/Magnetic";
 import { DeviceMockup, PhoneMockup } from "./DeviceMockup";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-const chips = [
-  { label: "Core Web Vitals", value: "100", className: "left-[-2%] top-[18%] md:left-[-6%]", color: "#10b981" },
-  { label: "Organic traffic", value: "+248%", className: "right-[-2%] top-[6%] md:right-[-5%]", color: "#0071e3" },
-  { label: "Launch", value: "On time", className: "left-[6%] bottom-[8%] hidden sm:flex", color: "#7c3aed" },
+const chipStyles = [
+  { className: "left-[-2%] top-[18%] md:left-[-6%]", color: "#10b981" },
+  { className: "right-[-2%] top-[6%] md:right-[-5%]", color: "#ff6b00" },
+  { className: "left-[6%] bottom-[8%] hidden sm:flex", color: "#ffa62b" },
 ];
 
-export function Hero() {
+type Props = { t: Dict["hero"]; links: { services: string; contact: string; work: string } };
+
+export function Hero({ t, links }: Props) {
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -29,43 +32,34 @@ export function Hero() {
   const textY = useTransform(p, [0, 0.4], reduce ? [0, 0] : [0, -120]);
   const textOpacity = useTransform(p, [0, 0.3], [1, 0]);
   const phoneY = useTransform(p, [0, 0.6], reduce ? [0, 0] : [80, -60]);
-  const glowScale = useTransform(p, [0, 0.5], [1, 1.4]);
+  const sunScale = useTransform(p, [0, 0.5], [1, 1.5]);
+  const sunY = useTransform(p, [0, 0.5], [0, 160]);
 
   return (
-    <section ref={ref} className="relative overflow-hidden pt-28 md:pt-36">
+    <section ref={ref} className="relative overflow-hidden pt-32 md:pt-40">
       <div aria-hidden className="grid-bg absolute inset-0 h-[70%]" />
-      <motion.div aria-hidden style={{ scale: glowScale }} className="pointer-events-none absolute inset-x-0 top-0 h-[900px]">
-        <div className="absolute left-[10%] top-[8%] h-[26rem] w-[26rem] animate-pulse-soft rounded-full bg-accent/30 blur-[120px]" />
-        <div className="absolute right-[8%] top-[18%] h-[22rem] w-[22rem] animate-pulse-soft rounded-full bg-violet/25 blur-[120px] [animation-delay:1.2s]" />
-        <div className="absolute left-[40%] top-[40%] h-[20rem] w-[20rem] animate-pulse-soft rounded-full bg-pink/20 blur-[120px] [animation-delay:2.4s]" />
+      {/* Rising sun glow */}
+      <motion.div aria-hidden style={{ scale: sunScale, y: sunY }} className="pointer-events-none absolute inset-x-0 top-0 h-[900px]">
+        <div className="absolute left-1/2 top-[34%] h-[34rem] w-[34rem] -translate-x-1/2 animate-pulse-soft rounded-full bg-accent/30 blur-[130px]" />
+        <div className="absolute left-[12%] top-[10%] h-[22rem] w-[22rem] animate-pulse-soft rounded-full bg-amber/30 blur-[120px] [animation-delay:1.2s]" />
+        <div className="absolute right-[10%] top-[16%] h-[20rem] w-[20rem] animate-pulse-soft rounded-full bg-coral/20 blur-[120px] [animation-delay:2.4s]" />
       </motion.div>
 
       <motion.div style={{ y: textY, opacity: textOpacity }} className="container-x relative text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 16, scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 0.8, ease }}
-        >
+        <motion.div initial={{ opacity: 0, y: 16, scale: 0.96 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.8, ease }}>
           <Link
-            href="/services/"
-            className="glass group mb-8 inline-flex items-center gap-2 rounded-full py-1.5 pl-1.5 pr-4 text-[13px] text-ink-soft ring-1 ring-black/[0.06] transition hover:ring-black/15"
+            href={links.services}
+            className="glass group mb-8 inline-flex items-center gap-2 rounded-full py-1.5 pl-1.5 pr-4 text-[13px] text-ink-soft ring-1 ring-accent/15 transition hover:ring-accent/40"
           >
-            <span className="flex items-center gap-1 rounded-full bg-ink px-2.5 py-1 text-[11px] font-medium text-white">
-              <Sparkles className="h-3 w-3" aria-hidden /> New
+            <span className="bg-sunset flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold text-white">
+              <Sparkles className="h-3 w-3" aria-hidden /> {t.badgeNew}
             </span>
-            AI & automation services now live
-            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" aria-hidden />
+            {t.badge}
+            <ArrowRight className="h-3.5 w-3.5 text-accent transition-transform group-hover:translate-x-0.5" aria-hidden />
           </Link>
         </motion.div>
 
-        <SplitText
-          as="h1"
-          animateOnMount
-          delay={0.15}
-          text="Technology, engineered to move you."
-          highlight={["move", "you."]}
-          className="display-xl mx-auto max-w-6xl text-ink"
-        />
+        <SplitText as="h1" animateOnMount delay={0.15} text={t.title} highlight={t.highlight} className="display-xl mx-auto max-w-6xl text-ink" />
 
         <motion.p
           className="lede mx-auto mt-7 max-w-2xl"
@@ -73,8 +67,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ delay: 0.7, duration: 1, ease }}
         >
-          InfoTech Solution is a Bangladesh-based IT company and digital agency. We design and build websites, apps and
-          software that look stunning, load instantly and grow your business.
+          {t.lede}
         </motion.p>
 
         <motion.div
@@ -84,36 +77,36 @@ export function Hero() {
           transition={{ delay: 0.9, duration: 0.9, ease }}
         >
           <Magnetic>
-            <Link href="/contact/" className="btn btn-primary !px-7 !text-base">
-              Start your project <ArrowRight className="h-4 w-4" aria-hidden />
+            <Link href={links.contact} className="btn btn-primary group !px-7 !text-base">
+              {t.primary} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
             </Link>
           </Magnetic>
           <Magnetic>
-            <Link href="/work/" className="btn btn-ghost !px-7 !text-base">
-              See our work
+            <Link href={links.work} className="btn btn-ghost !px-7 !text-base">
+              {t.secondary}
             </Link>
           </Magnetic>
         </motion.div>
       </motion.div>
 
       <div className="container-x relative mt-16 pb-24 md:mt-20 md:pb-36" style={{ perspective: 1600 }}>
-        <motion.div
-          initial={{ opacity: 0, y: 120 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 1.4, ease }}
-        >
+        <motion.div initial={{ opacity: 0, y: 120 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 1.4, ease }}>
           <motion.div style={{ rotateX, scale, y, transformOrigin: "50% 100%" }} className="relative">
             <DeviceMockup />
 
-            {chips.map((c, i) => (
+            {t.chips.map((c, i) => (
               <motion.div
                 key={c.label}
-                className={`glass absolute z-10 flex items-center gap-2.5 rounded-2xl px-3 py-2 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.25)] ring-1 ring-black/5 md:px-4 md:py-3 ${c.className}`}
+                aria-hidden
+                className={`glass absolute z-10 flex items-center gap-2.5 rounded-2xl px-3 py-2 shadow-[0_20px_40px_-15px_rgba(160,60,0,0.35)] ring-1 ring-accent/10 md:px-4 md:py-3 ${chipStyles[i].className}`}
                 initial={{ opacity: 0, scale: 0.6, y: 20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ delay: 1.6 + i * 0.15, type: "spring", stiffness: 200, damping: 16 }}
               >
-                <span className="h-2 w-2 rounded-full" style={{ background: c.color }} />
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="absolute inset-0 animate-ping rounded-full opacity-60" style={{ background: chipStyles[i].color }} />
+                  <span className="relative h-2.5 w-2.5 rounded-full" style={{ background: chipStyles[i].color }} />
+                </span>
                 <span className="text-left">
                   <span className="block text-[10px] text-muted md:text-[11px]">{c.label}</span>
                   <span className="block text-[13px] font-semibold tracking-tight text-ink md:text-[15px]">{c.value}</span>
