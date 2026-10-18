@@ -1,3 +1,5 @@
+import type { IconName } from "@/lib/services";
+
 // English copy for the whole site. src/content/bn.ts must mirror this shape.
 // Tokens like {name} are filled at render time with `fill()`.
 
@@ -28,6 +30,7 @@ const en = {
     closeMenu: "Close menu",
     skip: "Skip to content",
     servicesMenuTitle: "What we build",
+    solutionsMenuTitle: "Flagship solutions",
     servicesMenuAll: "View all services",
     servicesMenuPromoTitle: "Not sure where to start?",
     servicesMenuPromoBody: "Book a free consultation and get a clear roadmap within 24 hours.",
@@ -388,6 +391,309 @@ const en = {
     },
   } as Record<string, ProjectText>,
 
+  solutionsSection: {
+    eyebrow: "Flagship solutions",
+    title: "Tracking technology, built in Bangladesh.",
+    highlight: ["Tracking", "technology,"],
+    lede: "Ready-to-deploy platforms for fleets, cities and field teams, backed by our own hardware, cloud and apps.",
+    explore: "Explore solution",
+  },
+
+  solutionPage: {
+    eyebrow: "Solution",
+    demo: "Book a free demo",
+    call: "Call sales",
+    glance: "At a glance",
+    challenge: "The challenge",
+    how: "How it works",
+    features: "Capabilities",
+    benefits: "Who benefits",
+    useCases: "Use cases",
+    faq: "FAQ",
+    faqTitle: "Questions decision-makers ask.",
+    related: "More solutions",
+    metaTitle: "{solution} in Bangladesh",
+  },
+
+  solutions: {
+    "gps-tracking": {
+      title: "GPS Tracking Solution",
+      short: "Real-time vehicle and fleet tracking with engine lock, geofencing, alerts and reports on web and mobile.",
+      headline: "Know where every vehicle is. Every second.",
+      highlight: ["Every", "second."],
+      summary:
+        "Our GPS tracking solution, powered by the MobiTrack platform, combines BTRC-approved tracking devices, a secure cloud server and easy Android, iOS and web apps. Track a single bike or an entire fleet live, lock an engine remotely, get instant alerts and make decisions from clear reports.",
+      keywords: ["GPS tracking Bangladesh", "vehicle tracking system Bangladesh", "fleet management software Dhaka", "car tracker BD", "BTRC approved GPS tracker"],
+      badges: ["BTRC-approved devices", "Android, iOS & web", "24/7 support"],
+      facts: [
+        { value: "Live", label: "Real-time location, speed and status" },
+        { value: "24/7", label: "Monitoring and customer support" },
+        { value: "1 tap", label: "Remote engine lock from the app" },
+        { value: "1 → 1000s", label: "From one bike to a nationwide fleet" },
+      ],
+      challengeTitle: "Fleets lose money when they can't see.",
+      challenges: [
+        { icon: "map-pin", title: "Unknown whereabouts", body: "Managers call drivers to ask where they are, and still don't get a straight answer." },
+        { icon: "alert", title: "Theft and misuse", body: "Vehicles are used after hours, for side trips or stolen, and you find out too late." },
+        { icon: "fuel", title: "Fuel and time waste", body: "Idling, detours and unplanned stops quietly drain the fuel budget." },
+        { icon: "file", title: "No proof, no data", body: "Without trip records, disputes, billing and planning run on guesswork." },
+      ],
+      stepsTitle: "Up and running in days, not months.",
+      steps: [
+        { title: "Install", body: "A compact, BTRC-approved GPS tracker is fitted discreetly in each vehicle by our technicians." },
+        { title: "Connect", body: "Location, ignition and alert data stream securely to our cloud server around the clock." },
+        { title: "Track", body: "Follow every vehicle live on the web dashboard or the Android and iOS apps." },
+        { title: "Act", body: "Get alerted the moment something happens, and use reports to cut costs." },
+      ],
+      featuresTitle: "Everything you need to run a smarter fleet.",
+      features: [
+        { icon: "map-pin", title: "Live tracking", body: "Every vehicle on the map in real time, with speed, status and direction." },
+        { icon: "history", title: "Trip history & playback", body: "Replay any journey with its route, stops and timestamps." },
+        { icon: "power", title: "Remote engine lock", body: "Immobilise a vehicle from your phone if it is stolen or misused." },
+        { icon: "radar", title: "Geofencing", body: "Draw zones on the map and get notified when vehicles enter or leave them." },
+        { icon: "bell", title: "Instant alerts", body: "Overspeed, ignition on/off, power-cut and tamper alerts straight to the app." },
+        { icon: "chart", title: "Reports & analytics", body: "Distance, running time, idle time and stop reports for every vehicle." },
+        { icon: "users", title: "Role-based access", body: "Give owners, managers and drivers exactly the access they need." },
+        { icon: "webhook", title: "API & integration", body: "Feed tracking data into your ERP, dispatch or billing systems." },
+      ],
+      benefitsTitle: "Value for everyone who depends on your vehicles.",
+      audiences: [
+        {
+          icon: "building",
+          name: "Business owners",
+          items: [
+            { title: "Protect your assets", body: "Theft alerts and remote engine lock keep vehicles safe." },
+            { title: "Cut operating costs", body: "Reports expose idling, detours and fuel waste." },
+            { title: "Visibility anywhere", body: "See the whole fleet at a glance from your phone." },
+          ],
+        },
+        {
+          icon: "truck",
+          name: "Fleet managers",
+          items: [
+            { title: "Smarter dispatch", body: "Send the nearest vehicle to every job." },
+            { title: "Proof of service", body: "Trip history settles disputes with customers in seconds." },
+            { title: "Fewer phone calls", body: "No more calling drivers for location updates." },
+          ],
+        },
+        {
+          icon: "car",
+          name: "Families & individuals",
+          items: [
+            { title: "Peace of mind", body: "Know where your car or motorbike is at all times." },
+            { title: "Safer journeys", body: "Follow a loved one's trip live on the map." },
+            { title: "Simple app", body: "Everything you need in one clean, easy app." },
+          ],
+        },
+      ],
+      useCasesTitle: "Built for every kind of fleet.",
+      useCases: [
+        { icon: "package", label: "Logistics & delivery" },
+        { icon: "car", label: "Rent-a-car & ride services" },
+        { icon: "building", label: "Corporate fleets" },
+        { icon: "bus", label: "Buses & staff transport" },
+        { icon: "school", label: "School transport" },
+        { icon: "hard-hat", label: "Construction & heavy machinery" },
+        { icon: "bike", label: "Motorbikes & personal cars" },
+        { icon: "siren", label: "Ambulance & emergency" },
+      ],
+      faqs: [
+        { q: "Which vehicles can be tracked?", a: "Motorbikes, cars, microbuses, buses, trucks and heavy machinery. If it has a battery, we can usually track it." },
+        { q: "Are your devices legal in Bangladesh?", a: "Yes. Our tracking devices are approved by the BTRC." },
+        { q: "Can I lock my vehicle's engine remotely?", a: "Yes. With engine lock you can immobilise the vehicle from the app, for example if it is stolen." },
+        { q: "Can I see past trips?", a: "Yes. Trip history replays routes with stops and timestamps, and reports summarise distance and running time." },
+        { q: "Can it connect to our existing software?", a: "Yes. We offer API integration with ERP, dispatch and billing systems, and custom dashboards for enterprises." },
+      ],
+      ctaTitle: "See your fleet live in a free demo.",
+      ctaLede: "We'll walk you through the dashboard, apps and reports, and recommend the right setup for your vehicles.",
+      visual: { fleet: "Fleet", online: "online", moving: "Moving", speed: "42 km/h", alert: "Left zone: Gulshan", lock: "Engine locked", today: "Today", distance: "86 km", plate: "DHAKA METRO-GA 11-2345" },
+    },
+
+    "smart-tag": {
+      title: "Smart Tag Solution",
+      short: "Smart number plates for battery rickshaws: registration, identity checks and live GPS tracking in one plate.",
+      headline: "One smart plate. Order on every road.",
+      highlight: ["smart", "plate."],
+      summary:
+        "Smart Tag turns an ordinary number plate into a smart one. Every battery rickshaw gets a plate with a built-in GPS tracker and a unique QR code, linked to one central system. Authorities get registration, identity verification and live tracking in a single plate, and passengers get safer, calmer roads.",
+      keywords: ["smart number plate Bangladesh", "battery rickshaw tracking", "rickshaw registration system", "QR code number plate", "city corporation traffic management"],
+      badges: ["GPS + QR code in one plate", "Instant zone alerts", "One central dashboard"],
+      facts: [
+        { value: "1 plate", label: "Registration, identity and tracking together" },
+        { value: "1 scan", label: "All rickshaw details on any phone" },
+        { value: "Live", label: "Location of every rickshaw, 24/7" },
+        { value: "Instant", label: "Alerts when a rickshaw leaves its zone" },
+      ],
+      challengeTitle: "Battery rickshaws today: hard to count, harder to control.",
+      challenges: [
+        { icon: "traffic", title: "Traffic jams & chaos", body: "Unregulated movement causes severe congestion on the roads." },
+        { icon: "route", title: "Zone violations", body: "Rickshaws registered in one area freely enter other areas." },
+        { icon: "fingerprint", title: "Identity crisis", body: "It is hard to find the real owner or driver of a rickshaw." },
+        { icon: "receipt", title: "Lost revenue", body: "There is no accurate record of the government's income from rickshaws." },
+      ],
+      stepsTitle: "How Smart Tag works.",
+      steps: [
+        { title: "Register", body: "Each rickshaw, owner and driver is registered in the central system." },
+        { title: "Fit the plate", body: "A smart plate with a GPS tracker and a unique QR code is installed." },
+        { title: "Assign a zone", body: "Each rickshaw receives its permitted operating area (zone permit)." },
+        { title: "Monitor & enforce", body: "Authorities watch live, police verify with a scan, and alerts flag violations." },
+      ],
+      featuresTitle: "Our simple solution: the smart number plate.",
+      features: [
+        { icon: "satellite", title: "GPS tracking", body: "See where every rickshaw is, at any moment." },
+        { icon: "qr", title: "QR code", body: "Scan with a mobile phone to see all of its details." },
+        { icon: "bell", title: "Zone alerts", body: "An instant alert the moment a rickshaw leaves its area." },
+        { icon: "clipboard", title: "Central registry", body: "Registration, renewals and zone permits in one central system." },
+        { icon: "gavel", title: "Digital fines", body: "Police issue on-the-spot fines from a mobile app." },
+        { icon: "message", title: "Passenger complaints", body: "Passengers report a problem simply by scanning the plate." },
+      ],
+      benefitsTitle: "Benefits for government, police and the public.",
+      audiences: [
+        {
+          icon: "landmark",
+          name: "Government",
+          items: [
+            { title: "Central monitoring", body: "Every rickshaw accounted for and controlled from one central system." },
+            { title: "Traffic control", body: "Allow a set number of rickshaws in each area." },
+            { title: "Power savings", body: "Tracking legal rickshaws helps stop illegal charging and electricity theft." },
+            { title: "Higher revenue", body: "Accurate renewals and zone permits increase government income." },
+          ],
+        },
+        {
+          icon: "siren",
+          name: "Traffic police",
+          items: [
+            { title: "One scan, all info", body: "Scan the QR code to check a rickshaw's validity instantly." },
+            { title: "Easy route checks", body: "See whether a rickshaw is approved for this area." },
+            { title: "Quick digital fines", body: "Issue spot fines straight from the mobile app." },
+            { title: "Complaint checks", body: "See whether passengers have filed complaints against the rickshaw." },
+          ],
+        },
+        {
+          icon: "users",
+          name: "Public",
+          items: [
+            { title: "Safer travel", body: "Every rickshaw is tracked, so the fear of theft or mugging drops." },
+            { title: "Easy complaints", body: "Scan the plate to report a problem directly." },
+            { title: "Order & comfort", body: "Less congestion and more comfortable journeys for everyone." },
+          ],
+        },
+      ],
+      useCasesTitle: "Ready for.",
+      useCases: [
+        { icon: "landmark", label: "City corporations" },
+        { icon: "building", label: "Municipalities (pourashava)" },
+        { icon: "siren", label: "Traffic police divisions" },
+        { icon: "users", label: "Rickshaw owner associations" },
+        { icon: "school", label: "Campuses & housing societies" },
+        { icon: "map", label: "Upazila administrations" },
+      ],
+      faqs: [
+        { q: "What is a smart number plate?", a: "A number plate with a built-in GPS tracker and a unique QR code, connected to a central system that holds the rickshaw's registration, owner, driver and zone permit." },
+        { q: "How do police check a rickshaw?", a: "They scan the QR code with the mobile app to see whether the rickshaw is registered, whether its permit is valid and whether it may operate in that area." },
+        { q: "What happens if a rickshaw leaves its zone?", a: "The system raises a zone alert immediately so the authorities can act." },
+        { q: "Can passengers use it?", a: "Yes. Scanning the plate shows the rickshaw's verified details, and passengers can file a complaint directly." },
+        { q: "Can it work for other vehicles?", a: "Yes. The same platform can be configured for auto-rickshaws, CNGs, vans and other locally licensed vehicles." },
+      ],
+      ctaTitle: "Bring order to your city's roads.",
+      ctaLede: "Talk to us about a pilot for your city corporation, municipality or area. We'll plan the rollout with you.",
+      visual: { verified: "Verified", registered: "Registered", zone: "Zone: Mirpur-10", permit: "Permit valid", owner: "Owner & driver on record", scan: "Scan to verify", live: "Live GPS" },
+    },
+
+    "employee-tracking": {
+      title: "Employee Tracking Solution",
+      short: "Verify field visits with GPS check-ins at planned locations, live team maps and proof-of-visit reports.",
+      headline: "Know your field team really showed up.",
+      highlight: ["really", "showed", "up."],
+      summary:
+        "Give every field employee a simple mobile app. When they reach a client, shop or site, the app checks their phone's GPS position against the planned location, records the time and collects a photo and notes. Managers see live progress and verified visit reports, without phone calls or paperwork.",
+      keywords: ["employee tracking app Bangladesh", "field force tracking", "sales team GPS tracking", "field visit verification", "GPS attendance app"],
+      badges: ["Geofenced check-ins", "Proof of every visit", "Privacy-first: work hours only"],
+      facts: [
+        { value: "GPS", label: "Verified check-in at every visit" },
+        { value: "Live", label: "Team map during working hours" },
+        { value: "Auto", label: "Daily attendance and visit reports" },
+        { value: "0", label: "Paper registers or check-up calls" },
+      ],
+      challengeTitle: "Field reports you can't verify.",
+      challenges: [
+        { icon: "alert", title: "Fake or inflated visits", body: "Visit reports get filled in from the office or the tea stall." },
+        { icon: "file", title: "No proof for clients", body: "You can't show a customer when someone was actually on site." },
+        { icon: "clipboard", title: "Manual attendance", body: "Paper registers and phone calls waste time and are easy to manipulate." },
+        { icon: "map-pin", title: "Blind spots", body: "Nobody knows who is where, so urgent jobs go to the wrong person." },
+      ],
+      stepsTitle: "Verified visits in four simple steps.",
+      steps: [
+        { title: "Plan", body: "Managers assign clients, shops or sites with their exact map locations." },
+        { title: "Check in", body: "On arrival the employee taps check-in; the app confirms they are inside the location's geofence." },
+        { title: "Capture proof", body: "A timestamp, photo and notes are attached to the visit automatically." },
+        { title: "Review", body: "Managers see verified visits, routes and attendance on the dashboard." },
+      ],
+      featuresTitle: "Built for real field operations.",
+      features: [
+        { icon: "user-check", title: "Geofenced check-in & out", body: "A check-in only counts inside the planned location's radius." },
+        { icon: "map", title: "Live team map", body: "See where your field team is during working hours." },
+        { icon: "route", title: "Route timeline", body: "Each employee's day as a timeline of visits, travel and stops." },
+        { icon: "camera", title: "Proof of visit", body: "Photos and notes attached to every visit, with time and place." },
+        { icon: "calendar", title: "Visit planning", body: "Assign daily routes and target visits to each person." },
+        { icon: "bell", title: "Missed-visit alerts", body: "Know right away when a planned visit is missed or late." },
+        { icon: "chart", title: "Attendance & reports", body: "Automatic attendance, visit counts, distance and time-on-site." },
+        { icon: "eye-off", title: "Privacy controls", body: "Tracking runs only during duty hours, with the employee's consent." },
+      ],
+      benefitsTitle: "Fair for the company. Fair for the team.",
+      audiences: [
+        {
+          icon: "building",
+          name: "Management",
+          items: [
+            { title: "Verified productivity", body: "Know exactly how many real visits happened today." },
+            { title: "Better coverage", body: "Hand urgent jobs to whoever is closest." },
+            { title: "Decisions from data", body: "Compare territories, routes and team performance." },
+          ],
+        },
+        {
+          icon: "receipt",
+          name: "HR & finance",
+          items: [
+            { title: "Accurate attendance", body: "Field attendance is recorded automatically with location." },
+            { title: "Fair travel allowance", body: "Pay conveyance based on the distance actually travelled." },
+            { title: "Less paperwork", body: "Reports are ready to export at the end of the month." },
+          ],
+        },
+        {
+          icon: "users",
+          name: "Field employees",
+          items: [
+            { title: "Recognition for real work", body: "Genuine effort is recorded and visible to managers." },
+            { title: "Less reporting", body: "Visits are logged automatically, no paperwork." },
+            { title: "Privacy respected", body: "No tracking outside working hours." },
+          ],
+        },
+      ],
+      useCasesTitle: "Made for teams on the move.",
+      useCases: [
+        { icon: "cart", label: "FMCG & sales teams" },
+        { icon: "pill", label: "Pharma medical representatives" },
+        { icon: "hard-hat", label: "Field service technicians" },
+        { icon: "users", label: "NGO & development field officers" },
+        { icon: "landmark", label: "Banking & insurance agents" },
+        { icon: "shield", label: "Security guard patrols" },
+        { icon: "package", label: "Delivery & collection teams" },
+        { icon: "building", label: "Construction site supervisors" },
+      ],
+      faqs: [
+        { q: "How do you confirm an employee visited a location?", a: "Each planned location has a geofence. A check-in is accepted only when the phone's GPS position is inside that radius, and it is saved with the time and, optionally, a photo and notes." },
+        { q: "Is employee tracking fair to staff?", a: "We design for transparency: employees install the app knowingly, tracking runs only during working hours and they can see their own data. We recommend adding the policy to employment terms." },
+        { q: "Which phones does it work on?", a: "Android and iOS smartphones with GPS." },
+        { q: "Can employees fake their GPS location?", a: "The app can detect mock-location apps and flag suspicious check-ins for review." },
+        { q: "Can it connect to our HR or payroll system?", a: "Yes. Attendance and visit data can be exported or connected through an API." },
+      ],
+      ctaTitle: "Make every field visit count.",
+      ctaLede: "Book a demo and see verified check-ins, live team maps and reports in action.",
+      visual: { checkedIn: "Checked in", time: "10:42 AM", within: "Within 35 m of site", client: "Rahman Traders, Mirpur", visits: "Today's visits", progress: "3 of 5 done", proof: "1 photo · 1 note", stops: ["Karim Store · 9:15", "City Pharma · 10:02", "Rahman Traders · 10:42", "Nur Enterprise", "Bismillah Mart"] },
+    },
+  } as Record<string, SolutionText>,
+
   pages: {
     services: {
       metaTitle: "IT Services: Web, App, Software & SEO in Bangladesh",
@@ -539,6 +845,31 @@ export type ServiceText = {
   features: { title: string; body: string }[];
   deliverables: string[];
   faqs: { q: string; a: string }[];
+};
+
+export type SolutionText = {
+  title: string;
+  short: string;
+  headline: string;
+  highlight: string[];
+  summary: string;
+  keywords: string[];
+  badges: string[];
+  facts: { value: string; label: string }[];
+  challengeTitle: string;
+  challenges: { icon: IconName; title: string; body: string }[];
+  stepsTitle: string;
+  steps: { title: string; body: string }[];
+  featuresTitle: string;
+  features: { icon: IconName; title: string; body: string }[];
+  benefitsTitle: string;
+  audiences: { icon: IconName; name: string; items: { title: string; body: string }[] }[];
+  useCasesTitle: string;
+  useCases: { icon: IconName; label: string }[];
+  faqs: { q: string; a: string }[];
+  ctaTitle: string;
+  ctaLede: string;
+  visual: Record<string, string | string[]>;
 };
 
 export type ProjectText = { title: string; category: string; blurb: string; highlight: string; tags: string[] };

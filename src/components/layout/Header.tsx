@@ -4,22 +4,21 @@ import * as m from "motion/react-m";
 import { AnimatePresence, useMotionValueEvent, useScroll, useSpring } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowRight, ArrowUpRight, ChevronDown, Mail, Phone } from "lucide-react";
 import { basePath, localePath, type Lang } from "@/i18n/config";
 import type { Dict } from "@/content";
-import type { IconName } from "@/lib/services";
 import { navPaths, site } from "@/lib/site";
-import { Icon } from "@/components/ui/Icon";
 import { Logo } from "./Logo";
 
-type NavService = { slug: string; title: string; short: string; icon: IconName; gradient: [string, string] };
-type Props = { lang: Lang; nav: Dict["nav"]; services: NavService[] };
+// Icons arrive pre-rendered from the server so the icon set never ships in this bundle.
+export type NavService = { slug: string; title: string; short: string; icon: ReactNode; gradient: [string, string] };
+type Props = { lang: Lang; nav: Dict["nav"]; services: NavService[]; solutions: NavService[] };
 
 const spring = { type: "spring", stiffness: 380, damping: 34, mass: 0.8 } as const;
 const ease = [0.22, 1, 0.36, 1] as const;
 
-export function Header({ lang, nav, services }: Props) {
+export function Header({ lang, nav, services, solutions }: Props) {
   const pathname = usePathname();
   const path = basePath(pathname);
   const { scrollY, scrollYProgress } = useScroll();
@@ -176,40 +175,53 @@ export function Header({ lang, nav, services }: Props) {
                 onMouseEnter={openMega}
                 onMouseLeave={closeMega}
               >
-                <div className="grid grid-cols-[1fr_260px] gap-3 rounded-[28px] bg-white p-3 shadow-[0_30px_80px_-20px_rgba(120,50,0,0.3)] ring-1 ring-accent/10">
-                  <div>
-                    <p className="px-3 pb-2 pt-2 text-[12px] font-semibold uppercase tracking-[0.14em] text-muted">{nav.servicesMenuTitle}</p>
-                    <m.ul
-                      className="grid grid-cols-2 gap-1"
-                      initial="hidden"
-                      animate="show"
-                      variants={{ show: { transition: { staggerChildren: 0.025 } } }}
-                    >
-                      {services.map((s) => (
-                        <m.li
-                          key={s.slug}
-                          variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0, transition: { duration: 0.35, ease } } }}
-                        >
+                <div className="grid grid-cols-[1fr_250px] gap-3 rounded-[28px] bg-white p-3 shadow-[0_30px_80px_-20px_rgba(120,50,0,0.3)] ring-1 ring-accent/10">
+                  <m.div initial="hidden" animate="show" variants={{ show: { transition: { staggerChildren: 0.02 } } }}>
+                    <p className="px-3 pb-2 pt-2 text-[12px] font-semibold uppercase tracking-[0.14em] text-muted">{nav.solutionsMenuTitle}</p>
+                    <ul className="grid grid-cols-3 gap-2">
+                      {solutions.map((s) => (
+                        <m.li key={s.slug} variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0, transition: { duration: 0.35, ease } } }}>
                           <Link
                             href={href(`/services/${s.slug}/`)}
                             onClick={() => setMegaOpen(false)}
-                            className="group flex items-start gap-3 rounded-2xl p-3 transition-colors duration-300 hover:bg-mist"
+                            className="group flex h-full flex-col rounded-2xl bg-mist p-3.5 ring-1 ring-accent/10 transition-all duration-300 hover:bg-cream hover:ring-accent/25"
                           >
                             <span
-                              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-white shadow-[0_8px_18px_-8px_rgba(255,107,0,0.8)] transition-transform duration-500 ease-[var(--ease-spring)] group-hover:scale-110 group-hover:-rotate-6"
+                              className="flex h-10 w-10 items-center justify-center rounded-xl text-white shadow-[0_8px_18px_-8px_rgba(255,107,0,0.8)] transition-transform duration-500 ease-[var(--ease-spring)] group-hover:-rotate-6 group-hover:scale-110"
                               style={{ background: `linear-gradient(135deg, ${s.gradient[0]}, ${s.gradient[1]})` }}
                             >
-                              <Icon name={s.icon} className="h-5 w-5" />
+                              {s.icon}
+                            </span>
+                            <span className="mt-3 block text-[14.5px] font-semibold leading-snug text-ink">{s.title}</span>
+                            <span className="mt-1 line-clamp-2 block text-[12.5px] leading-snug text-muted">{s.short}</span>
+                          </Link>
+                        </m.li>
+                      ))}
+                    </ul>
+                    <p className="mt-3 px-3 pb-1 pt-2 text-[12px] font-semibold uppercase tracking-[0.14em] text-muted">{nav.servicesMenuTitle}</p>
+                    <ul className="grid grid-cols-2 gap-x-1">
+                      {services.map((s) => (
+                        <m.li key={s.slug} variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0, transition: { duration: 0.35, ease } } }}>
+                          <Link
+                            href={href(`/services/${s.slug}/`)}
+                            onClick={() => setMegaOpen(false)}
+                            className="group flex items-center gap-3 rounded-xl px-3 py-2 transition-colors duration-300 hover:bg-mist"
+                          >
+                            <span
+                              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-white transition-transform duration-500 ease-[var(--ease-spring)] group-hover:scale-110 [&_svg]:h-4 [&_svg]:w-4"
+                              style={{ background: `linear-gradient(135deg, ${s.gradient[0]}, ${s.gradient[1]})` }}
+                            >
+                              {s.icon}
                             </span>
                             <span className="min-w-0">
-                              <span className="block text-[14.5px] font-semibold text-ink">{s.title}</span>
-                              <span className="mt-0.5 line-clamp-2 block text-[12.5px] leading-snug text-muted">{s.short}</span>
+                              <span className="block text-[14px] font-semibold text-ink">{s.title}</span>
+                              <span className="block truncate text-[12px] text-muted">{s.short}</span>
                             </span>
                           </Link>
                         </m.li>
                       ))}
-                    </m.ul>
-                  </div>
+                    </ul>
+                  </m.div>
                   <div className="bg-sunset noise relative flex flex-col overflow-hidden rounded-[22px] p-6 text-white">
                     <span aria-hidden className="dots-light absolute inset-0 opacity-40" />
                     <span aria-hidden className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-sun/60 blur-3xl" />
@@ -235,7 +247,7 @@ export function Header({ lang, nav, services }: Props) {
         </m.div>
       </header>
 
-      <MobileMenu open={open} lang={lang} nav={nav} services={services} path={path} onNavigate={() => setOpenPath(null)} />
+      <MobileMenu open={open} lang={lang} nav={nav} services={[...solutions, ...services]} path={path} onNavigate={() => setOpenPath(null)} />
     </>
   );
 }
@@ -385,10 +397,10 @@ function MobileMenu({
                   className="flex shrink-0 items-center gap-2 rounded-full bg-mist py-2 pl-2 pr-4 text-[13.5px] font-medium text-ink ring-1 ring-accent/10"
                 >
                   <span
-                    className="flex h-7 w-7 items-center justify-center rounded-full text-white"
+                    className="flex h-7 w-7 items-center justify-center rounded-full text-white [&_svg]:h-3.5 [&_svg]:w-3.5"
                     style={{ background: `linear-gradient(135deg, ${s.gradient[0]}, ${s.gradient[1]})` }}
                   >
-                    <Icon name={s.icon} className="h-3.5 w-3.5" />
+                    {s.icon}
                   </span>
                   {s.title}
                 </Link>

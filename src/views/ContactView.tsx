@@ -1,6 +1,6 @@
 import { Clock, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
 import { localePath, type Lang } from "@/i18n/config";
-import { getDict, getServices } from "@/content";
+import { getDict, getServices, getSolutions } from "@/content";
 import { pageMeta } from "@/lib/seo";
 import { mapsUrl, site } from "@/lib/site";
 import { PageHero } from "@/components/sections/PageHero";
@@ -77,7 +77,7 @@ export function ContactView({ lang }: { lang: Lang }) {
             </Reveal>
           </div>
           <Reveal className="lg:col-span-7" delay={0.1}>
-            <ContactForm t={d.form} services={getServices(d).map((s) => s.title)} />
+            <ContactForm t={d.form} services={[...getSolutions(d), ...getServices(d)].map((s) => s.title)} />
           </Reveal>
         </div>
       </section>

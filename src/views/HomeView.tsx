@@ -10,6 +10,7 @@ import { ProcessStack } from "@/components/home/ProcessStack";
 import { ExpandReveal } from "@/components/home/ExpandReveal";
 import { HorizontalWork } from "@/components/home/HorizontalWork";
 import { WhyUs } from "@/components/home/WhyUs";
+import { SolutionsShowcase } from "@/components/solutions/SolutionsShowcase";
 import { CTA } from "@/components/sections/CTA";
 import { FAQList } from "@/components/sections/FAQ";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -31,6 +32,7 @@ export function HomeView({ lang }: { lang: Lang }) {
       <Hero t={d.hero} links={{ services: href("/services/ai-automation/"), contact: href("/contact/"), work: href("/work/") }} />
       <TechMarquee title={d.marquee} />
       <Statement t={d.statement} />
+      <SolutionsShowcase lang={lang} />
       <ServicesBento lang={lang} />
       <ExpandReveal lang={lang} t={d.impact} labels={d.stats} />
       <ProcessStack lang={lang} t={d.process} />

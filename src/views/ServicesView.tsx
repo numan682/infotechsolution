@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
 import { formatNumber, localePath, type Lang } from "@/i18n/config";
-import { fill, getDict, getServices } from "@/content";
+import { fill, getDict, getServices, getSolutions } from "@/content";
 import { pageMeta } from "@/lib/seo";
 import { site } from "@/lib/site";
 import { PageHero } from "@/components/sections/PageHero";
 import { ServiceVisual } from "@/components/sections/ServiceVisual";
+import { Icon } from "@/components/ui/Icon";
 import { CTA } from "@/components/sections/CTA";
+import { SolutionsShowcase } from "@/components/solutions/SolutionsShowcase";
 import { Reveal } from "@/components/ui/Reveal";
 import { JsonLd, breadcrumbLd } from "@/components/seo/JsonLd";
 
@@ -28,7 +30,7 @@ export function ServicesView({ lang }: { lang: Lang }) {
           {
             "@context": "https://schema.org",
             "@type": "ItemList",
-            itemListElement: services.map((s, i) => ({
+            itemListElement: [...getSolutions(d), ...services].map((s, i) => ({
               "@type": "ListItem",
               position: i + 1,
               url: `${site.url}${localePath(lang, `/services/${s.slug}/`)}`,
@@ -39,11 +41,13 @@ export function ServicesView({ lang }: { lang: Lang }) {
       />
       <PageHero lang={lang} eyebrow={t.eyebrow} title={t.title} highlight={t.highlight} lede={t.lede} crumbs={[{ name: t.eyebrow, path: "/services/" }]} />
 
+      <SolutionsShowcase lang={lang} className="!pt-0" />
+
       <div className="container-x space-y-28 pb-28 md:space-y-40 md:pb-40">
         {services.map((s, i) => (
           <section key={s.slug} id={s.slug} className="grid items-center gap-10 md:grid-cols-2 md:gap-16" aria-labelledby={`${s.slug}-title`}>
             <Reveal className={i % 2 ? "md:order-2" : ""}>
-              <ServiceVisual service={s} />
+              <ServiceVisual gradient={s.gradient} stack={s.stack} icon={<Icon name={s.icon} />} />
             </Reveal>
             <Reveal delay={0.1}>
               <p className="eyebrow">

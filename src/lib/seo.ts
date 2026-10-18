@@ -15,12 +15,13 @@ export function pageMeta(
     path,
     keywords,
     absoluteTitle = false,
-  }: { title: string; description: string; path: string; keywords?: string[]; absoluteTitle?: boolean },
+    image = "/opengraph-image",
+  }: { title: string; description: string; path: string; keywords?: string[]; absoluteTitle?: boolean; image?: string },
 ): Metadata {
   const dict = getDict(lang);
   const url = localePath(lang, path);
   const fullTitle = absoluteTitle ? title : `${title} | ${site.name}`;
-  const ogImage = { url: "/opengraph-image", width: 1200, height: 630, alt: dict.meta.ogAlt, type: "image/png" };
+  const ogImage = { url: image, width: 1200, height: 630, alt: absoluteTitle ? dict.meta.ogAlt : fullTitle, type: "image/png" };
 
   return {
     title: absoluteTitle ? { absolute: title } : title,

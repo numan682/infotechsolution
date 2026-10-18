@@ -1,6 +1,7 @@
 import type { Lang } from "@/i18n/config";
 import { serviceMeta } from "@/lib/services";
 import { projectMeta } from "@/lib/content";
+import { solutionMeta } from "@/lib/solutions";
 import en, { type Dict } from "./en";
 import bn from "./bn";
 
@@ -27,3 +28,12 @@ export function getProjects(dict: Dict) {
   return projectMeta.map((m) => ({ ...m, url: m.url as string | undefined, gradient: [...m.gradient] as [string, string], ...dict.projects[m.id] }));
 }
 export type Project = ReturnType<typeof getProjects>[number];
+
+export function getSolutions(dict: Dict) {
+  return solutionMeta.map((m) => ({ ...m, gradient: [...m.gradient] as [string, string], ...dict.solutions[m.slug] }));
+}
+export type Solution = ReturnType<typeof getSolutions>[number];
+
+export function getSolution(dict: Dict, slug: string) {
+  return getSolutions(dict).find((s) => s.slug === slug);
+}

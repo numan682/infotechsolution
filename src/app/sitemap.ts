@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { locales, localePath } from "@/i18n/config";
 import { site } from "@/lib/site";
 import { serviceSlugs } from "@/lib/services";
+import { solutionSlugs } from "@/lib/solutions";
 
 export const dynamic = "force-static";
 
@@ -10,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const pages: { path: string; priority: number; freq: "weekly" | "monthly" | "yearly" }[] = [
     { path: "/", priority: 1, freq: "weekly" },
     { path: "/services/", priority: 0.9, freq: "monthly" },
+    ...solutionSlugs.map((slug) => ({ path: `/services/${slug}/`, priority: 0.95, freq: "monthly" as const })),
     ...serviceSlugs.map((slug) => ({ path: `/services/${slug}/`, priority: 0.85, freq: "monthly" as const })),
     { path: "/work/", priority: 0.8, freq: "monthly" },
     { path: "/about/", priority: 0.7, freq: "monthly" },

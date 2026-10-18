@@ -8,7 +8,19 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SplitText } from "@/components/ui/SplitText";
 
 /** Big sunset-orange call-to-action panel. */
-export function CTA({ lang, title }: { lang: Lang; title?: string }) {
+export function CTA({
+  lang,
+  title,
+  lede,
+  primary,
+  primaryHref,
+}: {
+  lang: Lang;
+  title?: string;
+  lede?: string;
+  primary?: string;
+  primaryHref?: string;
+}) {
   const dict = getDict(lang);
   const t = dict.cta;
   return (
@@ -24,13 +36,13 @@ export function CTA({ lang, title }: { lang: Lang; title?: string }) {
         <div className="relative mx-auto max-w-3xl">
           <SplitText text={title ?? t.title} className="display-lg text-white" />
           <Reveal delay={0.2}>
-            <p className="lede mx-auto mt-6 max-w-xl !text-white/85">{t.lede}</p>
+            <p className="lede mx-auto mt-6 max-w-xl !text-white/90">{lede ?? t.lede}</p>
           </Reveal>
           <Reveal delay={0.35}>
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Magnetic>
-                <Link href={localePath(lang, "/contact/")} className="btn btn-light group !px-7 !text-base">
-                  {t.primary} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
+                <Link href={primaryHref ?? localePath(lang, "/contact/")} className="btn btn-light group !px-7 !text-base">
+                  {primary ?? t.primary} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
                 </Link>
               </Magnetic>
               <Magnetic>

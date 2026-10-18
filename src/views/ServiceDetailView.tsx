@@ -32,6 +32,7 @@ export const serviceDetailMeta = (lang: Lang, slug: string) => {
     description: clampWords(`${s.short} ${s.summary}`, 155),
     path: `/services/${s.slug}/`,
     keywords: s.keywords,
+    image: `/og/${s.slug}.png`,
   });
 };
 
@@ -96,7 +97,7 @@ export function ServiceDetailView({ lang, slug }: { lang: Lang; slug: string }) 
       <div className="container-x">
         <Reveal>
           <div className="mx-auto max-w-4xl">
-            <ServiceVisual service={s} />
+            <ServiceVisual gradient={s.gradient} stack={s.stack} icon={<Icon name={s.icon} />} />
           </div>
         </Reveal>
       </div>

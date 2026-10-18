@@ -2,7 +2,7 @@
 
 import * as m from "motion/react-m";
 import { AnimatePresence } from "motion/react";
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { ArrowRight, Check, Mail } from "lucide-react";
 import type { Dict } from "@/content";
 import { site } from "@/lib/site";
@@ -20,6 +20,14 @@ export function ContactForm({ t, services }: { t: Dict["form"]; services: string
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
   const [budget, setBudget] = useState("");
+  const serviceRef = useRef<HTMLSelectElement>(null);
+
+  // "Book a demo" links pass ?service=<name>; preselect it so the enquiry is one step shorter.
+  useEffect(() => {
+    const wanted = new URLSearchParams(window.location.search).get("service");
+    const el = serviceRef.current;
+    if (wanted && el && [...el.options].some((o) => o.value === wanted)) el.value = wanted;
+  }, []);
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -120,6 +128,7 @@ export function ContactForm({ t, services }: { t: Dict["form"]; services: string
 
             <div className="relative">
               <select
+                ref={serviceRef}
                 id="service"
                 name="service"
                 defaultValue=""

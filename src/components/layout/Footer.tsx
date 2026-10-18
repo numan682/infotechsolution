@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 import { localePath, type Lang } from "@/i18n/config";
-import { getDict, getServices } from "@/content";
+import { getDict, getServices, getSolutions } from "@/content";
 import { mapsUrl, navPaths, site } from "@/lib/site";
 import { Logo } from "./Logo";
 import { SocialIcons } from "./SocialIcons";
@@ -28,7 +28,7 @@ export function Footer({ lang }: { lang: Lang }) {
           <nav aria-label={t.services} className="md:col-span-3">
             <h2 className="text-[13px] font-semibold uppercase tracking-wider text-white">{t.services}</h2>
             <ul className="mt-5 space-y-3 text-[15px]">
-              {getServices(dict).map((s) => (
+              {[...getSolutions(dict), ...getServices(dict)].map((s) => (
                 <li key={s.slug}>
                   <Link href={href(`/services/${s.slug}/`)} className="transition-colors hover:text-accent">
                     {s.title}
