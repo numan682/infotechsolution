@@ -12,7 +12,7 @@ export function CTA({ lang, title }: { lang: Lang; title?: string }) {
   const dict = getDict(lang);
   const t = dict.cta;
   return (
-    <section className="px-3 py-3 md:px-5 md:py-5">
+    <section className="cv-auto px-3 py-3 md:px-5 md:py-5">
       <div className="bg-sunset noise relative isolate overflow-hidden rounded-[32px] px-6 py-24 text-center md:rounded-[44px] md:py-36">
         <div aria-hidden className="grid-bg-light absolute inset-0" />
         <div

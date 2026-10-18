@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node -e \"for (const d of ['.next','out']) require('fs').rmSync(d,{recursive:true,force:true})\"",
     "build": "next build && node scripts/postbuild.mjs",
     "start": "npx serve out",
     "lint": "eslint"

@@ -14,7 +14,7 @@ export function ServicesBento({ lang }: { lang: Lang }) {
   const dict = getDict(lang);
   const t = dict.servicesSection;
   return (
-    <section id="services" className="bg-mist py-24 md:py-36">
+    <section id="services" className="cv-auto bg-mist py-24 md:py-36">
       <div className="container-x">
         <SectionHeading eyebrow={t.eyebrow} title={t.title} highlight={t.highlight} lede={t.lede} />
 
@@ -41,7 +41,7 @@ export function ServicesBento({ lang }: { lang: Lang }) {
                         >
                           <Icon name={s.icon} className="h-6 w-6" />
                         </span>
-                        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent/[0.08] text-accent transition-all duration-500 group-hover:rotate-45 group-hover:bg-accent group-hover:text-white">
+                        <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent/[0.08] text-accent-ink transition-all duration-500 group-hover:rotate-45 group-hover:bg-accent group-hover:text-white">
                           <ArrowUpRight className="h-4 w-4" aria-hidden />
                         </span>
                       </div>

@@ -80,7 +80,7 @@ export function AboutView({ lang }: { lang: Lang }) {
                   className={`absolute left-0 top-1 h-6 w-6 rounded-full border-4 border-white bg-accent shadow-[0_0_0_5px_rgba(255,107,0,0.18)] ${i % 2 ? "md:-left-3" : "md:-right-3 md:left-auto"}`}
                 />
                 <Reveal>
-                  <p className="font-mono text-sm font-semibold text-accent">{item.year}</p>
+                  <p className="font-mono text-sm font-semibold text-accent-ink">{item.year}</p>
                   <h3 className="mt-1 text-[24px] font-semibold tracking-[-0.03em] text-ink">{item.title}</h3>
                   <p className="mt-2 text-[16px] leading-relaxed text-muted">{item.body}</p>
                 </Reveal>

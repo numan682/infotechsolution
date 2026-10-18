@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "motion/react";
+import * as m from "motion/react-m";
+import { useMotionValue, useSpring } from "motion/react";
 import { useRef, type ReactNode } from "react";
 
 /** Gently pulls its child toward the cursor on pointer devices. */
@@ -12,7 +13,7 @@ export function Magnetic({ children, strength = 0.3, className }: { children: Re
   const sy = useSpring(y, { stiffness: 220, damping: 15, mass: 0.4 });
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={`inline-block ${className ?? ""}`}
       style={{ x: sx, y: sy }}
@@ -28,6 +29,6 @@ export function Magnetic({ children, strength = 0.3, className }: { children: Re
       }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

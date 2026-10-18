@@ -1,8 +1,8 @@
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { ChevronRight } from "lucide-react";
 import { localePath, type Lang } from "@/i18n/config";
 import { getDict } from "@/content";
-import { Reveal } from "@/components/ui/Reveal";
 import { SplitText } from "@/components/ui/SplitText";
 
 type Props = {
@@ -36,11 +36,11 @@ export function PageHero({ lang, eyebrow, title, lede, highlight, crumbs = [], c
 
       <div className="container-x relative text-center">
         {crumbs.length > 0 && (
-          <Reveal y={10} blur={false}>
+          <div className="enter" style={{ "--enter-y": "10px", "--enter-blur": "0px" } as CSSProperties}>
             <nav aria-label={dict.common.breadcrumb} className="mb-8 flex justify-center">
               <ol className="glass inline-flex flex-wrap items-center gap-1 rounded-full px-4 py-1.5 text-[13px] text-muted ring-1 ring-accent/10">
                 <li>
-                  <Link href={localePath(lang, "/")} className="hover:text-accent">
+                  <Link href={localePath(lang, "/")} className="hover:text-accent-ink">
                     {dict.nav.home}
                   </Link>
                 </li>
@@ -52,7 +52,7 @@ export function PageHero({ lang, eyebrow, title, lede, highlight, crumbs = [], c
                         {c.name}
                       </span>
                     ) : (
-                      <Link href={localePath(lang, c.path)} className="hover:text-accent">
+                      <Link href={localePath(lang, c.path)} className="hover:text-accent-ink">
                         {c.name}
                       </Link>
                     )}
@@ -60,19 +60,20 @@ export function PageHero({ lang, eyebrow, title, lede, highlight, crumbs = [], c
                 ))}
               </ol>
             </nav>
-          </Reveal>
+          </div>
         )}
-        <Reveal y={16}>
-          <p className="eyebrow mb-5">{eyebrow}</p>
-        </Reveal>
-        <SplitText as="h1" text={title} highlight={highlight} animateOnMount className="display-xl mx-auto max-w-5xl text-ink" />
-        <Reveal delay={0.35}>
-          <p className="lede mx-auto mt-7 max-w-2xl">{lede}</p>
-        </Reveal>
+        {/* Pure-CSS entrances: visible from first paint, so LCP doesn't wait for JS. */}
+        <p className="eyebrow enter mb-5" style={{ "--enter-y": "16px" } as CSSProperties}>
+          {eyebrow}
+        </p>
+        <SplitText as="h1" text={title} highlight={highlight} animateOnMount delay={0.05} className="display-xl mx-auto max-w-5xl text-ink" />
+        <p className="lede enter mx-auto mt-7 max-w-2xl" style={{ "--d": "0.3s" } as CSSProperties}>
+          {lede}
+        </p>
         {children && (
-          <Reveal delay={0.5}>
-            <div className="mt-10">{children}</div>
-          </Reveal>
+          <div className="enter mt-10" style={{ "--d": "0.45s", "--enter-blur": "0px" } as CSSProperties}>
+            {children}
+          </div>
         )}
       </div>
     </section>

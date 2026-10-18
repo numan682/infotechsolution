@@ -13,7 +13,7 @@ export function Footer({ lang }: { lang: Lang }) {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative overflow-hidden bg-night text-white/60">
+    <footer className="cv-auto relative overflow-hidden bg-night text-white/60">
       <div aria-hidden className="absolute -top-48 left-1/2 h-96 w-[64rem] -translate-x-1/2 rounded-full bg-gradient-to-r from-amber/30 via-accent/40 to-coral/30 blur-[130px]" />
       <div className="container-x relative pb-10 pt-20 md:pt-28">
         <div className="grid gap-12 md:grid-cols-12">

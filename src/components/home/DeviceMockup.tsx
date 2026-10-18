@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import * as m from "motion/react-m";
 
 const bars = [42, 64, 50, 78, 58, 88, 70, 96, 74, 100, 84, 92];
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -28,7 +28,7 @@ export function DeviceMockup() {
                 <div
                   key={l}
                   className={`flex items-center gap-2 rounded-lg px-3 py-2 text-[12px] ${
-                    i === 0 ? "bg-white/[0.08] text-white" : "text-neutral-500"
+                    i === 0 ? "bg-white/[0.08] text-white" : "text-neutral-400"
                   }`}
                 >
                   <span className={`h-1.5 w-1.5 rounded-full ${i === 0 ? "bg-accent" : "bg-neutral-600"}`} />
@@ -49,7 +49,7 @@ export function DeviceMockup() {
                   { k: "Vehicles live", v: "1,284", d: "online", c: "text-emerald-400" },
                   { k: "Orders", v: "3,920", d: "+18%", c: "text-accent" },
                 ].map((s, i) => (
-                  <motion.div
+                  <m.div
                     key={s.k}
                     initial={{ opacity: 0, y: 12 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -57,10 +57,10 @@ export function DeviceMockup() {
                     transition={{ delay: 0.6 + i * 0.12, duration: 0.7, ease }}
                     className="rounded-xl bg-white/[0.04] p-2.5 ring-1 ring-white/[0.06] md:p-4"
                   >
-                    <p className="text-[9px] text-neutral-500 md:text-[11px]">{s.k}</p>
+                    <p className="text-[9px] text-neutral-400 md:text-[11px]">{s.k}</p>
                     <p className="mt-1 text-[13px] font-semibold tracking-tight text-white md:text-xl">{s.v}</p>
                     <p className={`text-[9px] md:text-[11px] ${s.c}`}>{s.d}</p>
-                  </motion.div>
+                  </m.div>
                 ))}
               </div>
 
@@ -79,7 +79,7 @@ export function DeviceMockup() {
                         <stop offset="1" stopColor="#ff4d17" />
                       </linearGradient>
                     </defs>
-                    <motion.path
+                    <m.path
                       d="M0 95 C30 90 45 70 75 72 S120 50 150 55 S200 30 225 32 S270 12 300 8 L300 110 L0 110Z"
                       fill="url(#dm-area)"
                       initial={{ opacity: 0 }}
@@ -87,7 +87,7 @@ export function DeviceMockup() {
                       viewport={{ once: true }}
                       transition={{ delay: 1.4, duration: 1 }}
                     />
-                    <motion.path
+                    <m.path
                       d="M0 95 C30 90 45 70 75 72 S120 50 150 55 S200 30 225 32 S270 12 300 8"
                       fill="none"
                       stroke="url(#dm-line)"
@@ -105,7 +105,7 @@ export function DeviceMockup() {
                   <p className="text-[10px] text-neutral-400 md:text-[12px]">Orders</p>
                   <div className="mt-2 flex h-20 items-end gap-[3px] md:h-32 md:gap-1.5">
                     {bars.map((h, i) => (
-                      <motion.span
+                      <m.span
                         key={i}
                         className="flex-1 origin-bottom rounded-t-[3px] bg-gradient-to-t from-accent to-sun"
                         style={{ height: `${h}%` }}
@@ -128,7 +128,7 @@ export function DeviceMockup() {
                     <span className={`h-2 w-2 animate-pulse rounded-full ${r.c}`} />
                     <div>
                       <p className="text-[12px] text-white">{r.t}</p>
-                      <p className="text-[10px] text-neutral-500">{r.s}</p>
+                      <p className="text-[10px] text-neutral-400">{r.s}</p>
                     </div>
                   </div>
                 ))}

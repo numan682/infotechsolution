@@ -16,15 +16,20 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { JsonLd, breadcrumbLd, faqLd } from "@/components/seo/JsonLd";
 
+/** Trim to a word boundary so search snippets aren't cut mid-word. */
+function clampWords(text: string, max: number) {
+  if (text.length <= max) return text;
+  const cut = text.slice(0, max);
+  return `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[,;:।.]$/, "")}…`;
+}
+
 export const serviceDetailMeta = (lang: Lang, slug: string) => {
   const d = getDict(lang);
   const s = getService(d, slug);
   if (!s) return {};
-  const stop = lang === "en" ? "." : "।";
-  const firstSentence = s.summary.split(`${stop} `)[0].replace(new RegExp(`\\${stop}$`), "");
   return pageMeta(lang, {
     title: fill(d.pages.serviceDetail.metaTitle, { service: s.title }),
-    description: `${s.short} ${firstSentence}${stop}`,
+    description: clampWords(`${s.short} ${s.summary}`, 155),
     path: `/services/${s.slug}/`,
     keywords: s.keywords,
   });
@@ -103,7 +108,7 @@ export function ServiceDetailView({ lang, slug }: { lang: Lang; slug: string }) 
             {s.features.map((f, i) => (
               <StaggerItem key={f.title}>
                 <SpotlightCard glow="rgba(255,107,0,0.14)" className="card h-full p-7 ring-1 ring-accent/[0.06]">
-                  <span className="font-mono text-[13px] font-semibold text-accent">{num(i + 1)}</span>
+                  <span className="font-mono text-[13px] font-semibold text-accent-ink">{num(i + 1)}</span>
                   <h3 className="mt-5 text-[20px] font-semibold tracking-[-0.025em] text-ink">{f.title}</h3>
                   <p className="mt-2 text-[15px] leading-relaxed text-muted">{f.body}</p>
                 </SpotlightCard>
@@ -123,7 +128,7 @@ export function ServiceDetailView({ lang, slug }: { lang: Lang; slug: string }) 
               {s.deliverables.map((item) => (
                 <StaggerItem key={item}>
                   <div className="flex h-full items-center gap-3 rounded-2xl bg-white/15 p-5 ring-1 ring-white/25 backdrop-blur-md transition-colors hover:bg-white/25">
-                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-accent">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white text-accent-ink">
                       <Check className="h-4 w-4" strokeWidth={3} aria-hidden />
                     </span>
                     <span className="text-[15px] font-medium text-white">{item}</span>
@@ -197,7 +202,7 @@ export function ServiceDetailView({ lang, slug }: { lang: Lang; slug: string }) 
                     <span className="block text-[17px] font-semibold tracking-[-0.02em] text-ink">{o.title}</span>
                     <span className="mt-0.5 line-clamp-1 block text-[14px] text-muted">{o.short}</span>
                   </span>
-                  <ArrowUpRight className="h-5 w-5 text-accent transition-transform duration-500 group-hover:rotate-45" aria-hidden />
+                  <ArrowUpRight className="h-5 w-5 text-accent-ink transition-transform duration-500 group-hover:rotate-45" aria-hidden />
                 </Link>
               </StaggerItem>
             ))}

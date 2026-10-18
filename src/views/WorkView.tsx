@@ -68,7 +68,7 @@ export function WorkView({ lang }: { lang: Lang }) {
                         <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
                         <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
                         <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-                        {host && <span className="mx-auto truncate rounded-md bg-black/[0.05] px-3 py-0.5 font-mono text-[11px] text-black/50">{host}</span>}
+                        {host && <span className="mx-auto truncate rounded-md bg-black/[0.05] px-3 py-0.5 font-mono text-[11px] text-black/60">{host}</span>}
                       </div>
                       <div className="mt-5 grid grid-cols-4 gap-3">
                         <span className="col-span-4 h-5 w-1/2 rounded-full bg-black/10 md:col-span-2" />
@@ -95,11 +95,11 @@ export function WorkView({ lang }: { lang: Lang }) {
                     </div>
                     <div className="shrink-0 sm:text-right">
                       <p className="text-gradient text-[20px] font-bold tracking-tight md:text-[22px]">{p.highlight}</p>
-                      {host && <p className="text-[13px] font-semibold text-accent">{d.common.visitSite} ↗</p>}
+                      {host && <p className="text-[13px] font-semibold text-accent-ink">{d.common.visitSite} ↗</p>}
                     </div>
                   </div>
                   {host && (
-                    <span className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full bg-white text-accent shadow-lg transition-transform duration-500 group-hover:rotate-45">
+                    <span className="absolute right-5 top-5 flex h-10 w-10 items-center justify-center rounded-full bg-white text-accent-ink shadow-lg transition-transform duration-500 group-hover:rotate-45">
                       <ArrowUpRight className="h-5 w-5" aria-hidden />
                     </span>
                   )}
@@ -109,8 +109,9 @@ export function WorkView({ lang }: { lang: Lang }) {
             return (
               <StaggerItem key={p.id} className={wide ? "md:col-span-2" : ""}>
                 {p.url ? (
-                  <a href={p.url} target="_blank" rel="noopener" className="block h-full" aria-label={`${p.title} (${d.common.newTab})`}>
+                  <a href={p.url} target="_blank" rel="noopener" className="block h-full">
                     {card}
+                    <span className="sr-only"> ({d.common.newTab})</span>
                   </a>
                 ) : (
                   card

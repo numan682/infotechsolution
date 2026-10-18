@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useMotionTemplate, useMotionValue, useSpring } from "motion/react";
+import * as m from "motion/react-m";
+import { useMotionTemplate, useMotionValue, useSpring } from "motion/react";
 import { useRef, type ReactNode } from "react";
 
 type Props = {
@@ -20,7 +21,7 @@ export function SpotlightCard({ children, className = "", glow = "rgba(0,113,227
   const background = useMotionTemplate`radial-gradient(420px circle at ${mx}px ${my}px, ${glow}, transparent 65%)`;
 
   return (
-    <motion.div
+    <m.div
       ref={ref}
       className={`group relative isolate overflow-hidden ${className}`}
       style={{ rotateX: rx, rotateY: ry, transformPerspective: 1100 }}
@@ -43,12 +44,12 @@ export function SpotlightCard({ children, className = "", glow = "rgba(0,113,227
         ry.set(0);
       }}
     >
-      <motion.div
+      <m.div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{ background }}
       />
       {children}
-    </motion.div>
+    </m.div>
   );
 }

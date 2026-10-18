@@ -5,7 +5,7 @@ const en = {
   meta: {
     siteTitle: "InfoTech Solution | IT Company & Digital Agency in Bangladesh",
     description:
-      "InfoTech Solution is a Bangladesh-based IT company and digital agency building fast websites, mobile apps, custom software, GPS tracking platforms, cloud infrastructure and growth-focused digital marketing.",
+      "Dhaka-based IT company & digital agency building fast websites, mobile apps, custom software, GPS tracking and SEO for growing businesses. Get a free quote.",
     keywords: [
       "IT company in Bangladesh",
       "software company Dhaka",
@@ -390,9 +390,9 @@ const en = {
 
   pages: {
     services: {
-      metaTitle: "IT Services in Bangladesh: Web, App, Software & SEO",
+      metaTitle: "IT Services: Web, App, Software & SEO in Bangladesh",
       metaDescription:
-        "Web development, mobile apps, UI/UX design, custom software & ERP, e-commerce, cloud & DevOps, SEO and AI automation from InfoTech Solution, an IT company in Dhaka, Bangladesh.",
+        "Web development, mobile apps, UI/UX, custom software & ERP, e-commerce, cloud, SEO and AI automation from a leading IT company in Dhaka, Bangladesh.",
       eyebrow: "Services",
       title: "Every service your business needs to grow.",
       highlight: ["grow."],
@@ -413,18 +413,18 @@ const en = {
       more: "Explore more services",
     },
     work: {
-      metaTitle: "Our Work: GPS Tracking, Apps, Websites & Software",
+      metaTitle: "Our Work: GPS Tracking, Apps & Websites",
       metaDescription:
-        "Projects by InfoTech Solution: the MobiTrack24 GPS tracking app and server, the Sun City Engineering website, inventory software, a language learning app and more, built in Bangladesh.",
+        "Our projects: the MobiTrack24 GPS tracking app and server, Sun City Engineering's website, inventory software, a language learning app and more.",
       eyebrow: "Our work",
       title: "Products people love to use.",
       highlight: ["love"],
       lede: "GPS tracking platforms, mobile apps, business software and websites, designed, engineered and launched by our team in Dhaka.",
     },
     about: {
-      metaTitle: "About Us: A Bangladesh IT Company Built on Craft",
+      metaTitle: "About Us: An IT Company in Dhaka, Bangladesh",
       metaDescription:
-        "Meet InfoTech Solution, a Dhaka-based team of designers, engineers and strategists building world-class websites, apps and software for clients in Bangladesh and worldwide.",
+        "Meet InfoTech Solution, a Dhaka team of designers and engineers building world-class websites, apps and software for clients in Bangladesh and beyond.",
       eyebrow: "About us",
       title: "Made in Bangladesh. Built for the world.",
       highlight: ["Built", "for", "the", "world."],
@@ -457,7 +457,7 @@ const en = {
     process: {
       metaTitle: "Our Process & Engagement Models",
       metaDescription:
-        "How InfoTech Solution delivers software projects on time and on budget: discovery, design, agile development and launch, with fixed-price, dedicated team and retainer options.",
+        "How InfoTech Solution delivers projects on time and on budget: discovery, design, agile development and launch, with fixed-price, team or retainer options.",
       eyebrow: "Process",
       title: "Clarity at every step.",
       highlight: ["Clarity"],
@@ -477,7 +477,7 @@ const en = {
     contact: {
       metaTitle: "Contact Us: Get a Free Quote",
       metaDescription:
-        "Talk to InfoTech Solution about your website, app or software project. Call +88 09666-722622 or visit us at Shahadat Shoroni, Dhaka 1212. Free consultation and a fixed quote within 24 hours.",
+        "Talk to InfoTech Solution about your website, app or software project. Call +88 09666-722622 or visit us in Dhaka 1212. Free quote within 24 hours.",
       eyebrow: "Contact",
       title: "Let’s talk about your next big thing.",
       highlight: ["next", "big", "thing."],

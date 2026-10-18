@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
 @theme inline {
-  --font-sans: var(--font-geist-sans), var(--font-bangla), -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-bangla: var(--font-anek-bangla), "Noto Sans Bengali", sans-serif;
+  /* English pages never reference the web Bangla font (153KB); stray Bangla glyphs use system fonts. */
+  --font-sans: var(--font-geist-sans, system-ui), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans Bengali", "Nirmala UI", "Bangla Sangam MN", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* Anek covers only Bengali code points, so Latin words on Bangla pages fall through to Geist. */
+  --font-bangla: var(--font-anek-bangla, "Noto Sans Bengali"), var(--font-geist-sans, system-ui), "Noto Sans Bengali", "Nirmala UI", "Bangla Sangam MN", sans-serif;
 
   /* Warm neutrals */
   --color-ink: #1c1410;
@@ -20,6 +22,9 @@
   --color-accent: #ff6b00;
   --color-accent-strong: #e85d00;
   --color-accent-soft: #fff0e3;
+  /* Text-safe oranges (WCAG AA): ink on light surfaces, deep for white-text buttons */
+  --color-accent-ink: #c44100;
+  --color-accent-deep: #cc4700;
   --color-amber: #ffa62b;
   --color-sun: #ffc24b;
   --color-coral: #ff4d17;
@@ -51,7 +56,40 @@
     0%, 100% { opacity: 0.55; transform: scale(1); }
     50% { opacity: 1; transform: scale(1.08); }
   }
+  /* Start at 0.01 (not 0): Chrome counts the element as painted on the first frame,
+     so these entrances never delay Largest Contentful Paint. */
+  @keyframes enter {
+    from { opacity: 0.01; transform: translate3d(0, var(--enter-y, 24px), 0); filter: blur(var(--enter-blur, 8px)); }
+    to { opacity: 1; transform: none; filter: none; }
+  }
+  @keyframes word-rise {
+    from { opacity: 0.01; transform: translate3d(0, 0.35em, 0) scale(0.96); filter: blur(12px); }
+    to { opacity: 1; transform: none; filter: none; }
+  }
 }
+
+/* Anek Bangla (OFL), self-hosted as two static weights (Bengali subset, ~56KB each).
+   Declared globally but only downloaded when a font-family references it, which only
+   Bangla pages do; the Bangla layout preloads both. 400 covers regular/medium text,
+   700 covers semibold/bold headings. */
+@font-face {
+  font-family: "Anek Bangla";
+  src: url("/fonts/anek-bangla-400.woff2") format("woff2");
+  font-weight: 100 549;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0951-0952, U+0964-0965, U+0980-09FE, U+1CD0, U+1CD2, U+1CD5-1CD6, U+1CD8, U+1CE1, U+1CEA, U+1CED, U+1CF2, U+1CF5-1CF7, U+200C-200D, U+20B9, U+25CC, U+A8F1, U+11DF0-11DF1;
+}
+@font-face {
+  font-family: "Anek Bangla";
+  src: url("/fonts/anek-bangla-700.woff2") format("woff2");
+  font-weight: 550 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0951-0952, U+0964-0965, U+0980-09FE, U+1CD0, U+1CD2, U+1CD5-1CD6, U+1CD8, U+1CE1, U+1CEA, U+1CED, U+1CF2, U+1CF5-1CF7, U+200C-200D, U+20B9, U+25CC, U+A8F1, U+11DF0-11DF1;
+}
+
+html[lang="bn"] { --font-anek-bangla: "Anek Bangla"; }
 
 :root {
   color-scheme: light;
@@ -75,7 +113,7 @@ body {
 
 /* Bangla: native Bengali face, no negative tracking (it breaks conjuncts), taller lines for matras. */
 html[lang="bn"] body {
-  font-family: var(--font-bangla), var(--font-geist-sans), sans-serif;
+  font-family: var(--font-bangla);
 }
 html[lang="bn"] :is(.display-xl, .display-lg, .display-md) {
   letter-spacing: -0.01em;
@@ -136,7 +174,17 @@ html.lenis, html.lenis body { height: auto; }
     font-size: 0.8125rem;
     font-weight: 600;
     letter-spacing: 0.02em;
-    color: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+
+  /* CSS-only entrance animations for above-the-fold content: they start on first
+     paint (no JS needed), which keeps LCP fast. Set --d for delay. */
+  .enter { animation: enter 0.9s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: var(--d, 0s); }
+  .word-rise { animation: word-rise 0.95s cubic-bezier(0.22, 1, 0.36, 1) both; animation-delay: calc(var(--d, 0s) + var(--i, 0) * 55ms); }
+  /* Highlighted words keep both the entrance and the gradient shimmer. */
+  .word-rise.text-gradient {
+    animation: word-rise 0.95s cubic-bezier(0.22, 1, 0.36, 1) both, var(--animate-gradient);
+    animation-delay: calc(var(--d, 0s) + var(--i, 0) * 55ms), 0s;
   }
   .eyebrow::before {
     content: "";
@@ -154,7 +202,7 @@ html.lenis, html.lenis body { height: auto; }
   }
 
   .text-gradient {
-    background: linear-gradient(92deg, #ff8a00 0%, #ff5a00 35%, #ff3d3d 65%, #ffa62b 100%);
+    background: linear-gradient(92deg, #e85d00 0%, #d94a00 35%, #e0301c 65%, #e85d00 100%);
     background-size: 220% 100%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -180,8 +228,10 @@ html.lenis, html.lenis body { height: auto; }
     box-shadow: 0 1px 2px rgb(60 30 10 / 0.04), 0 10px 36px -14px rgb(120 50 0 / 0.14);
   }
 
+  /* Deep enough for white text; background-color is the AA fallback. */
   .bg-sunset {
-    background: linear-gradient(135deg, #ff8a00 0%, #ff5a00 45%, #f43f1a 100%);
+    background-color: #d24a00;
+    background-image: linear-gradient(135deg, #f26000 0%, #e05200 45%, #c44100 100%);
   }
 
   .btn {
@@ -200,14 +250,14 @@ html.lenis, html.lenis body { height: auto; }
   }
   .btn:active { transform: scale(0.97); }
   .btn-primary {
-    background: var(--color-accent);
+    background: var(--color-accent-deep);
     color: white;
-    box-shadow: 0 10px 28px -10px rgb(255 107 0 / 0.7), inset 0 1px 0 rgb(255 255 255 / 0.25);
+    box-shadow: 0 10px 28px -10px rgb(255 107 0 / 0.75), inset 0 1px 0 rgb(255 255 255 / 0.22);
   }
-  .btn-primary:hover { background: var(--color-accent-strong); box-shadow: 0 14px 34px -10px rgb(255 107 0 / 0.8); }
+  .btn-primary:hover { background: #b93d00; box-shadow: 0 14px 34px -10px rgb(255 107 0 / 0.85); }
   .btn-dark { background: var(--color-ink); color: white; }
   .btn-dark:hover { background: #000; }
-  .btn-ghost { color: var(--color-ink); background: rgb(255 107 0 / 0.08); }
+  .btn-ghost { color: var(--color-ink); background: rgb(255 107 0 / 0.09); }
   .btn-ghost:hover { background: rgb(255 107 0 / 0.14); }
   .btn-light { background: white; color: var(--color-ink); box-shadow: 0 10px 30px -12px rgb(0 0 0 / 0.3); }
   .btn-light:hover { background: #fff7f1; }
@@ -218,7 +268,7 @@ html.lenis, html.lenis body { height: auto; }
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
-    color: var(--color-accent);
+    color: var(--color-accent-ink);
     font-weight: 500;
   }
   .link-arrow:hover { text-decoration: underline; text-underline-offset: 4px; }
@@ -255,6 +305,9 @@ html.lenis, html.lenis body { height: auto; }
     mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   }
 
+  /* Skip rendering work for off-screen sections until they approach the viewport. */
+  .cv-auto { content-visibility: auto; contain-intrinsic-size: auto 900px; }
+
   .no-scrollbar { scrollbar-width: none; }
   .no-scrollbar::-webkit-scrollbar { display: none; }
 
@@ -263,8 +316,11 @@ html.lenis, html.lenis body { height: auto; }
   .prose-apple p { margin: 0.75rem 0; }
   .prose-apple ul { list-style: disc; padding-left: 1.25rem; margin: 0.75rem 0; }
   .prose-apple li::marker { color: var(--color-accent); }
-  .prose-apple a { color: var(--color-accent); }
+  .prose-apple a { color: var(--color-accent-ink); }
 }
+
+/* Big blurred glows animate on their own compositor layer (no per-frame repaints). */
+.animate-pulse-soft, .animate-spin-slow, .animate-float { will-change: transform; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

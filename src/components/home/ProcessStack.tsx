@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
+import * as m from "motion/react-m";
+import { useScroll, useTransform, type MotionValue } from "motion/react";
 import { useRef } from "react";
 import { Check } from "lucide-react";
 import { formatNumber, type Lang } from "@/i18n/config";
@@ -40,7 +41,7 @@ function StackCard({ step, i, n, lang, progress }: { step: Step; i: number; n: n
 
   return (
     <div className="sticky h-[78vh] min-h-[500px]" style={{ top: `calc(var(--header-h) + 28px + ${i * 18}px)` }}>
-      <motion.article
+      <m.article
         style={{ scale, transformOrigin: "50% 0%", background: `linear-gradient(140deg, ${color}, #ff9a3d 130%)` }}
         className="noise relative grid h-[min(560px,70vh)] min-h-[460px] overflow-hidden rounded-[32px] p-7 text-white shadow-[0_-20px_60px_-30px_rgba(160,60,0,0.6)] md:grid-cols-2 md:p-12"
       >
@@ -56,7 +57,7 @@ function StackCard({ step, i, n, lang, progress }: { step: Step; i: number; n: n
           <ul className="mt-auto space-y-3 pt-8">
             {step.points.map((pt) => (
               <li key={pt} className="flex items-center gap-3 text-[15px] text-white">
-                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white text-accent">
+                <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white text-accent-ink">
                   <Check className="h-3.5 w-3.5" strokeWidth={3} aria-hidden />
                 </span>
                 {pt}
@@ -69,8 +70,8 @@ function StackCard({ step, i, n, lang, progress }: { step: Step; i: number; n: n
             {num}
           </span>
         </div>
-        <motion.div aria-hidden style={{ opacity: dim }} className="pointer-events-none absolute inset-0 bg-[#5a1f00]" />
-      </motion.article>
+        <m.div aria-hidden style={{ opacity: dim }} className="pointer-events-none absolute inset-0 bg-[#5a1f00]" />
+      </m.article>
     </div>
   );
 }

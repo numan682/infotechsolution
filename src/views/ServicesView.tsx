@@ -57,7 +57,7 @@ export function ServicesView({ lang }: { lang: Lang }) {
               <ul className="mt-7 grid gap-x-6 gap-y-3 sm:grid-cols-2">
                 {s.deliverables.map((item) => (
                   <li key={item} className="flex items-start gap-2.5 text-[15px] text-ink-soft">
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent-ink">
                       <Check className="h-3 w-3" strokeWidth={3} aria-hidden />
                     </span>
                     {item}

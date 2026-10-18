@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "motion/react";
+import * as m from "motion/react-m";
+import { useReducedMotion, type Variants } from "motion/react";
 import type { ReactNode } from "react";
 
 const ease = [0.22, 1, 0.36, 1] as const;
@@ -18,7 +19,7 @@ type RevealProps = {
 export function Reveal({ children, className, delay = 0, y = 40, blur = true, once = true }: RevealProps) {
   const reduce = useReducedMotion();
   return (
-    <motion.div
+    <m.div
       className={className}
       initial={reduce ? false : { opacity: 0, y, filter: blur ? "blur(8px)" : "blur(0px)" }}
       whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
@@ -26,7 +27,7 @@ export function Reveal({ children, className, delay = 0, y = 40, blur = true, on
       transition={{ duration: 1, ease, delay }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -52,7 +53,7 @@ export function Stagger({
 }) {
   const reduce = useReducedMotion();
   return (
-    <motion.div
+    <m.div
       className={className}
       variants={container}
       custom={stagger}
@@ -61,14 +62,14 @@ export function Stagger({
       viewport={{ once: true, margin: "0px 0px -10% 0px" }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
 export function StaggerItem({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <motion.div className={className} variants={staggerItem}>
+    <m.div className={className} variants={staggerItem}>
       {children}
-    </motion.div>
+    </m.div>
   );
 }

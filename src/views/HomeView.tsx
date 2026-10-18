@@ -42,7 +42,7 @@ export function HomeView({ lang }: { lang: Lang }) {
       />
       <WhyUs t={d.why} />
 
-      <section className="bg-mist py-24 md:py-36">
+      <section className="cv-auto bg-mist py-24 md:py-36">
         <div className="container-x grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <SectionHeading align="left" eyebrow={d.faq.eyebrow} title={d.faq.title} highlight={d.faq.highlight} lede={d.faq.lede} />

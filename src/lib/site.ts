@@ -22,6 +22,9 @@ export const site = {
     countryCode: "BD",
   },
   foundingYear: 2018,
+  // Paste the verification codes from Google Search Console / Bing Webmaster Tools
+  // (just the content="…" value of their HTML meta tag). Empty = tag not rendered.
+  verification: { google: "", bing: "" },
   socials: {
     facebook: "https://www.facebook.com/infotechsolution.site",
     linkedin: "https://www.linkedin.com/company/infotechsolution-site",

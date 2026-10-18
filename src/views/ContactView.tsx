@@ -53,7 +53,7 @@ export function ContactView({ lang }: { lang: Lang }) {
                     rel={ch.external ? "noopener noreferrer" : undefined}
                     className="card group flex items-center gap-4 p-5 ring-1 ring-transparent transition-all duration-500 hover:-translate-y-1 hover:ring-accent/20"
                   >
-                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-accent/10 text-accent transition-all duration-500 group-hover:scale-110 group-hover:bg-accent group-hover:text-white">
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-accent/10 text-accent-ink transition-all duration-500 group-hover:scale-110 group-hover:bg-accent group-hover:text-white">
                       <ch.icon className="h-5 w-5" aria-hidden />
                     </span>
                     <span className="min-w-0">

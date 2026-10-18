@@ -1,6 +1,6 @@
 import { localePath, localeMeta, type Lang } from "@/i18n/config";
-import { getDict } from "@/content";
-import { site } from "@/lib/site";
+import { getDict, getServices } from "@/content";
+import { mapsUrl, site } from "@/lib/site";
 
 export function JsonLd({ data }: { data: Record<string, unknown> | Record<string, unknown>[] }) {
   return (
@@ -21,9 +21,13 @@ export function organizationLd(lang: Lang) {
     name: site.name,
     alternateName: "ইনফোটেক সলিউশন",
     url: site.url,
-    logo: `${site.url}/icon.svg`,
+    logo: { "@type": "ImageObject", url: `${site.url}/logo.png`, width: 512, height: 512 },
     image: `${site.url}/opengraph-image`,
     description: dict.meta.description,
+    slogan: dict.hero.title,
+    hasMap: mapsUrl,
+    knowsLanguage: ["en", "bn"],
+    knowsAbout: getServices(dict).map((s) => s.title),
     email: site.email,
     telephone: site.phoneHref,
     foundingDate: String(site.foundingYear),

@@ -1,6 +1,7 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import * as m from "motion/react-m";
+import { AnimatePresence } from "motion/react";
 import { Plus } from "lucide-react";
 import { useId, useState } from "react";
 
@@ -20,22 +21,22 @@ export function FAQList({ faqs }: { faqs: readonly { q: string; a: string }[] })
                 aria-expanded={isOpen}
                 aria-controls={`${id}-${i}`}
                 onClick={() => setOpen(isOpen ? null : i)}
-                className="flex w-full items-center justify-between gap-6 py-6 text-left text-[17px] font-medium tracking-[-0.015em] text-ink transition-colors hover:text-accent md:text-[19px]"
+                className="flex w-full items-center justify-between gap-6 py-6 text-left text-[17px] font-medium tracking-[-0.015em] text-ink transition-colors hover:text-accent-ink md:text-[19px]"
               >
                 {f.q}
-                <motion.span
+                <m.span
                   animate={{ rotate: isOpen ? 45 : 0 }}
                   transition={{ type: "spring", stiffness: 300, damping: 22 }}
                   className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-black/[0.05]"
                 >
                   <Plus className="h-4 w-4" aria-hidden />
-                </motion.span>
+                </m.span>
               </button>
             </h3>
             {/* Answer stays in the DOM (hidden) so search engines can index it. */}
             <AnimatePresence initial={false}>
               {isOpen && (
-                <motion.div
+                <m.div
                   id={`${id}-${i}`}
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
@@ -44,7 +45,7 @@ export function FAQList({ faqs }: { faqs: readonly { q: string; a: string }[] })
                   className="overflow-hidden"
                 >
                   <p className="max-w-3xl pb-6 pr-10 leading-relaxed text-muted">{f.a}</p>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
             {!isOpen && (

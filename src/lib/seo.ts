@@ -62,5 +62,9 @@ export function rootMeta(lang: Lang): Metadata {
       googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
     },
     formatDetection: { telephone: false, email: false, address: false },
+    verification: {
+      ...(site.verification.google ? { google: site.verification.google } : {}),
+      ...(site.verification.bing ? { other: { "msvalidate.01": site.verification.bing } } : {}),
+    },
   };
 }

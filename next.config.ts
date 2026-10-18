@@ -12,6 +12,8 @@ const nextConfig: NextConfig = {
     // English (app/(en)) and Bangla (app/bn) each have their own root layout,
     // so the site-wide 404 lives in app/global-not-found.tsx.
     globalNotFound: true,
+    // Tailwind output is small: inlining it removes the render-blocking CSS request.
+    inlineCss: true,
   },
   turbopack: {
     rules: {

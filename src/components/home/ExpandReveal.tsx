@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "motion/react";
+import * as m from "motion/react-m";
+import { useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef, useState } from "react";
 import type { Lang } from "@/i18n/config";
 import { statValues } from "@/lib/site";
@@ -28,35 +29,35 @@ export function ExpandReveal({ lang, t, labels }: Props) {
   return (
     <section ref={ref} className="relative h-[220vh]" aria-labelledby="impact-title">
       <div className="sticky top-0 flex h-dvh items-center justify-center overflow-hidden">
-        <motion.div style={{ clipPath }} className="bg-sunset noise absolute inset-0">
+        <m.div style={{ clipPath }} className="bg-sunset noise absolute inset-0">
           <div aria-hidden className="grid-bg-light absolute inset-0" />
-          <motion.div
+          <m.div
             aria-hidden
             style={{ rotate: ringRotate }}
             className="absolute left-1/2 top-1/2 h-[120vmin] w-[120vmin] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/20"
           >
             <span className="absolute left-1/2 top-0 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-[0_0_24px_8px_rgba(255,255,255,0.7)]" />
-          </motion.div>
-          <motion.div
+          </m.div>
+          <m.div
             aria-hidden
             style={{ rotate: innerRingRotate }}
             className="absolute left-1/2 top-1/2 h-[80vmin] w-[80vmin] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/20"
           >
             <span className="absolute bottom-0 left-1/2 h-2.5 w-2.5 -translate-x-1/2 translate-y-1/2 rounded-full bg-sun shadow-[0_0_24px_8px_rgba(255,194,75,0.8)]" />
-          </motion.div>
+          </m.div>
           <div aria-hidden className="absolute left-1/2 top-1/2 h-[32rem] w-[32rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-sun/40 blur-[120px]" />
 
           <div className="container-x relative flex h-full flex-col items-center justify-center text-center">
-            <motion.div style={{ scale: titleScale, opacity: titleOpacity }}>
+            <m.div style={{ scale: titleScale, opacity: titleOpacity }}>
               <p className="eyebrow !text-white/90">{t.eyebrow}</p>
               <h2 id="impact-title" className="display-xl mt-4 text-white">
                 {t.line1}
                 <br />
                 <span className="text-white/75">{t.line2}</span>
               </h2>
-            </motion.div>
+            </m.div>
 
-            <motion.dl
+            <m.dl
               style={{ opacity: statsOpacity, y: statsY }}
               className="mt-14 grid w-full max-w-4xl grid-cols-2 gap-3 md:mt-20 md:grid-cols-4 md:gap-4"
             >
@@ -71,9 +72,9 @@ export function ExpandReveal({ lang, t, labels }: Props) {
                   </dd>
                 </div>
               ))}
-            </motion.dl>
+            </m.dl>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );

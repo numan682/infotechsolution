@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
+import * as m from "motion/react-m";
+import { useScroll, useTransform, type MotionValue } from "motion/react";
 import { useRef } from "react";
 
 /** Paragraph whose words light up one by one as the user scrolls through it. */
@@ -25,10 +26,11 @@ export function ScrollRevealText({ text, className }: { text: string; className?
 }
 
 function Word({ children, progress, range }: { children: string; progress: MotionValue<number>; range: [number, number] }) {
-  const opacity = useTransform(progress, range, [0.14, 1]);
+  // Dim words stay at >=3:1 contrast (large text AA), then warm up to full ink.
+  const color = useTransform(progress, range, ["#8c7c71", "#1c1410"]);
   return (
     <span className="relative mr-[0.25em] inline-block">
-      <motion.span style={{ opacity }}>{children}</motion.span>
+      <m.span style={{ color }}>{children}</m.span>
     </span>
   );
 }

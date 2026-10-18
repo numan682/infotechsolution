@@ -1,8 +1,9 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
+import * as m from "motion/react-m";
+import { useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, type CSSProperties } from "react";
 import { ArrowRight, Sparkles } from "lucide-react";
 import type { Dict } from "@/content";
 import { SplitText } from "@/components/ui/SplitText";
@@ -39,14 +40,14 @@ export function Hero({ t, links }: Props) {
     <section ref={ref} className="relative overflow-hidden pt-32 md:pt-40">
       <div aria-hidden className="grid-bg absolute inset-0 h-[70%]" />
       {/* Rising sun glow */}
-      <motion.div aria-hidden style={{ scale: sunScale, y: sunY }} className="pointer-events-none absolute inset-x-0 top-0 h-[900px]">
+      <m.div aria-hidden style={{ scale: sunScale, y: sunY }} className="pointer-events-none absolute inset-x-0 top-0 h-[900px]">
         <div className="absolute left-1/2 top-[34%] h-[34rem] w-[34rem] -translate-x-1/2 animate-pulse-soft rounded-full bg-accent/30 blur-[130px]" />
         <div className="absolute left-[12%] top-[10%] h-[22rem] w-[22rem] animate-pulse-soft rounded-full bg-amber/30 blur-[120px] [animation-delay:1.2s]" />
         <div className="absolute right-[10%] top-[16%] h-[20rem] w-[20rem] animate-pulse-soft rounded-full bg-coral/20 blur-[120px] [animation-delay:2.4s]" />
-      </motion.div>
+      </m.div>
 
-      <motion.div style={{ y: textY, opacity: textOpacity }} className="container-x relative text-center">
-        <motion.div initial={{ opacity: 0, y: 16, scale: 0.96 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.8, ease }}>
+      <m.div style={{ y: textY, opacity: textOpacity }} className="container-x relative text-center">
+        <div className="enter" style={{ "--enter-y": "16px", "--enter-blur": "0px" } as CSSProperties}>
           <Link
             href={links.services}
             className="glass group mb-8 inline-flex items-center gap-2 rounded-full py-1.5 pl-1.5 pr-4 text-[13px] text-ink-soft ring-1 ring-accent/15 transition hover:ring-accent/40"
@@ -55,27 +56,18 @@ export function Hero({ t, links }: Props) {
               <Sparkles className="h-3 w-3" aria-hidden /> {t.badgeNew}
             </span>
             {t.badge}
-            <ArrowRight className="h-3.5 w-3.5 text-accent transition-transform group-hover:translate-x-0.5" aria-hidden />
+            <ArrowRight className="h-3.5 w-3.5 text-accent-ink transition-transform group-hover:translate-x-0.5" aria-hidden />
           </Link>
-        </motion.div>
+        </div>
 
-        <SplitText as="h1" animateOnMount delay={0.15} text={t.title} highlight={t.highlight} className="display-xl mx-auto max-w-6xl text-ink" />
+        <SplitText as="h1" animateOnMount delay={0.08} text={t.title} highlight={t.highlight} className="display-xl mx-auto max-w-6xl text-ink" />
 
-        <motion.p
-          className="lede mx-auto mt-7 max-w-2xl"
-          initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
-          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ delay: 0.7, duration: 1, ease }}
-        >
+        {/* CSS entrances (no JS wait) keep LCP fast; delays stay short for the same reason. */}
+        <p className="lede enter mx-auto mt-7 max-w-2xl" style={{ "--d": "0.3s" } as CSSProperties}>
           {t.lede}
-        </motion.p>
+        </p>
 
-        <motion.div
-          className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.9, duration: 0.9, ease }}
-        >
+        <div className="enter mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row" style={{ "--d": "0.45s", "--enter-blur": "0px" } as CSSProperties}>
           <Magnetic>
             <Link href={links.contact} className="btn btn-primary group !px-7 !text-base">
               {t.primary} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
@@ -86,16 +78,16 @@ export function Hero({ t, links }: Props) {
               {t.secondary}
             </Link>
           </Magnetic>
-        </motion.div>
-      </motion.div>
+        </div>
+      </m.div>
 
       <div className="container-x relative mt-16 pb-24 md:mt-20 md:pb-36" style={{ perspective: 1600 }}>
-        <motion.div initial={{ opacity: 0, y: 120 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5, duration: 1.4, ease }}>
-          <motion.div style={{ rotateX, scale, y, transformOrigin: "50% 100%" }} className="relative">
+        <div className="enter" style={{ "--d": "0.35s", "--enter-y": "120px", "--enter-blur": "0px", animationDuration: "1.4s" } as CSSProperties}>
+          <m.div style={{ rotateX, scale, y, transformOrigin: "50% 100%" }} className="relative">
             <DeviceMockup />
 
             {t.chips.map((c, i) => (
-              <motion.div
+              <m.div
                 key={c.label}
                 aria-hidden
                 className={`glass absolute z-10 flex items-center gap-2.5 rounded-2xl px-3 py-2 shadow-[0_20px_40px_-15px_rgba(160,60,0,0.35)] ring-1 ring-accent/10 md:px-4 md:py-3 ${chipStyles[i].className}`}
@@ -108,13 +100,13 @@ export function Hero({ t, links }: Props) {
                   <span className="relative h-2.5 w-2.5 rounded-full" style={{ background: chipStyles[i].color }} />
                 </span>
                 <span className="text-left">
-                  <span className="block text-[10px] text-muted md:text-[11px]">{c.label}</span>
+                  <span className="block text-[10px] font-medium text-ink-soft md:text-[11px]">{c.label}</span>
                   <span className="block text-[13px] font-semibold tracking-tight text-ink md:text-[15px]">{c.value}</span>
                 </span>
-              </motion.div>
+              </m.div>
             ))}
 
-            <motion.div
+            <m.div
               style={{ y: phoneY }}
               className="absolute -bottom-10 right-[-2%] z-20 md:-bottom-16 md:right-[-4%]"
               initial={{ opacity: 0, x: 60, rotate: 8 }}
@@ -124,9 +116,9 @@ export function Hero({ t, links }: Props) {
               <div className="animate-float">
                 <PhoneMockup />
               </div>
-            </motion.div>
-          </motion.div>
-        </motion.div>
+            </m.div>
+          </m.div>
+        </div>
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 "use client";
 
-import { AnimatePresence, motion, useMotionValueEvent, useScroll, useSpring } from "motion/react";
-import { useLenis } from "lenis/react";
+import * as m from "motion/react-m";
+import { AnimatePresence, useMotionValueEvent, useScroll, useSpring } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -22,7 +22,6 @@ const ease = [0.22, 1, 0.36, 1] as const;
 export function Header({ lang, nav, services }: Props) {
   const pathname = usePathname();
   const path = basePath(pathname);
-  const lenis = useLenis();
   const { scrollY, scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 40 });
   const [scrolled, setScrolled] = useState(false);
@@ -37,15 +36,10 @@ export function Header({ lang, nav, services }: Props) {
 
   useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 24));
 
+  // Lock page scroll behind the mobile menu (touch devices scroll natively, no Lenis).
   useEffect(() => {
-    if (open) {
-      lenis?.stop();
-      document.documentElement.style.overflow = "hidden";
-    } else {
-      lenis?.start();
-      document.documentElement.style.overflow = "";
-    }
-  }, [open, lenis]);
+    document.documentElement.style.overflow = open ? "hidden" : "";
+  }, [open]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -80,14 +74,14 @@ export function Header({ lang, nav, services }: Props) {
       </a>
 
       {/* Reading progress */}
-      <motion.div
+      <m.div
         aria-hidden
         className="fixed inset-x-0 top-0 z-[60] h-[3px] origin-left bg-gradient-to-r from-amber via-accent to-coral"
         style={{ scaleX: progress }}
       />
 
       <header className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-3 md:px-5">
-        <motion.div
+        <m.div
           className="pointer-events-auto relative w-full"
           initial={false}
           animate={{
@@ -103,7 +97,7 @@ export function Header({ lang, nav, services }: Props) {
           style={{ backdropFilter: scrolled || open ? "saturate(180%) blur(22px)" : "none", WebkitBackdropFilter: scrolled || open ? "saturate(180%) blur(22px)" : "none" }}
           onMouseLeave={closeMega}
         >
-          <motion.nav
+          <m.nav
             aria-label="Main"
             className="flex items-center justify-between gap-3"
             initial={false}
@@ -140,7 +134,7 @@ export function Header({ lang, nav, services }: Props) {
                       {isServices && (
                         <ChevronDown
                           aria-hidden
-                          className={`h-3.5 w-3.5 transition-transform duration-300 ${megaOpen ? "rotate-180 text-accent" : ""}`}
+                          className={`h-3.5 w-3.5 transition-transform duration-300 ${megaOpen ? "rotate-180 text-accent-ink" : ""}`}
                         />
                       )}
                       {isActive(p) && (
@@ -148,7 +142,7 @@ export function Header({ lang, nav, services }: Props) {
                       )}
                     </Link>
                     {pillKey === p && (
-                      <motion.span
+                      <m.span
                         layoutId="nav-pill"
                         aria-hidden
                         className="absolute inset-0 rounded-full bg-accent/[0.09] ring-1 ring-accent/15"
@@ -168,12 +162,12 @@ export function Header({ lang, nav, services }: Props) {
               </Link>
               <MenuButton open={open} onClick={toggleMenu} label={open ? nav.closeMenu : nav.openMenu} />
             </div>
-          </motion.nav>
+          </m.nav>
 
           {/* Services mega menu (desktop) */}
           <AnimatePresence>
             {megaOpen && (
-              <motion.div
+              <m.div
                 className="absolute left-1/2 top-full hidden w-[min(940px,calc(100vw-40px))] -translate-x-1/2 pt-3 lg:block"
                 initial={{ opacity: 0, y: -10, scale: 0.97, filter: "blur(6px)" }}
                 animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
@@ -185,14 +179,14 @@ export function Header({ lang, nav, services }: Props) {
                 <div className="grid grid-cols-[1fr_260px] gap-3 rounded-[28px] bg-white p-3 shadow-[0_30px_80px_-20px_rgba(120,50,0,0.3)] ring-1 ring-accent/10">
                   <div>
                     <p className="px-3 pb-2 pt-2 text-[12px] font-semibold uppercase tracking-[0.14em] text-muted">{nav.servicesMenuTitle}</p>
-                    <motion.ul
+                    <m.ul
                       className="grid grid-cols-2 gap-1"
                       initial="hidden"
                       animate="show"
                       variants={{ show: { transition: { staggerChildren: 0.025 } } }}
                     >
                       {services.map((s) => (
-                        <motion.li
+                        <m.li
                           key={s.slug}
                           variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0, transition: { duration: 0.35, ease } } }}
                         >
@@ -212,9 +206,9 @@ export function Header({ lang, nav, services }: Props) {
                               <span className="mt-0.5 line-clamp-2 block text-[12.5px] leading-snug text-muted">{s.short}</span>
                             </span>
                           </Link>
-                        </motion.li>
+                        </m.li>
                       ))}
-                    </motion.ul>
+                    </m.ul>
                   </div>
                   <div className="bg-sunset noise relative flex flex-col overflow-hidden rounded-[22px] p-6 text-white">
                     <span aria-hidden className="dots-light absolute inset-0 opacity-40" />
@@ -235,10 +229,10 @@ export function Header({ lang, nav, services }: Props) {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
-        </motion.div>
+        </m.div>
       </header>
 
       <MobileMenu open={open} lang={lang} nav={nav} services={services} path={path} onNavigate={() => setOpenPath(null)} />
@@ -268,7 +262,7 @@ function LangToggle({ lang, path, label }: { lang: Lang; path: string; label: st
             }`}
           >
             {active && (
-              <motion.span
+              <m.span
                 layoutId="lang-knob"
                 aria-hidden
                 className="absolute inset-0 -z-10 rounded-full bg-accent shadow-[0_6px_16px_-6px_rgba(255,107,0,0.9)]"
@@ -294,12 +288,12 @@ function MenuButton({ open, onClick, label }: { open: boolean; onClick: () => vo
       className="relative z-10 flex h-11 w-11 items-center justify-center rounded-full bg-ink text-white transition-transform active:scale-95 lg:hidden"
     >
       <span className="relative block h-3 w-[18px]">
-        <motion.span
+        <m.span
           className="absolute left-0 top-0 block h-[2px] w-full rounded-full bg-white"
           animate={open ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
           transition={{ duration: 0.4, ease }}
         />
-        <motion.span
+        <m.span
           className="absolute bottom-0 left-0 block h-[2px] rounded-full bg-white"
           animate={open ? { rotate: -45, y: -5, width: "100%" } : { rotate: 0, y: 0, width: "60%" }}
           transition={{ duration: 0.4, ease }}
@@ -330,7 +324,7 @@ function MobileMenu({
   return (
     <AnimatePresence>
       {open && (
-        <motion.div
+        <m.div
           id="mobile-menu"
           className="fixed inset-0 z-40 flex flex-col overflow-y-auto bg-white px-6 pb-8 pt-28 lg:hidden"
           initial={{ clipPath: "circle(0% at calc(100% - 44px) 40px)" }}
@@ -342,7 +336,7 @@ function MobileMenu({
           <span aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-accent/20 blur-[90px]" />
           <span aria-hidden className="pointer-events-none absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-amber/25 blur-[90px]" />
 
-          <motion.ul
+          <m.ul
             className="relative flex flex-col"
             initial="hidden"
             animate="show"
@@ -355,7 +349,7 @@ function MobileMenu({
             {items.map((p, i) => {
               const active = p === "/" ? path === "/" : path.startsWith(p);
               return (
-                <motion.li
+                <m.li
                   key={p}
                   className="border-b border-line/70"
                   variants={{
@@ -364,18 +358,18 @@ function MobileMenu({
                   }}
                 >
                   <Link href={href(p)} onClick={onNavigate} className="group flex items-center gap-4 py-3.5">
-                    <span className="w-6 font-mono text-[12px] text-accent">0{i + 1}</span>
-                    <span className={`flex-1 text-[30px] font-semibold tracking-[-0.03em] ${active ? "text-accent" : "text-ink"}`}>
+                    <span className="w-6 font-mono text-[12px] text-accent-ink">0{i + 1}</span>
+                    <span className={`flex-1 text-[30px] font-semibold tracking-[-0.03em] ${active ? "text-accent-ink" : "text-ink"}`}>
                       {p === "/" ? nav.home : nav.labels[p]}
                     </span>
                     <ArrowUpRight className="h-5 w-5 text-muted transition-transform duration-300 group-active:rotate-45" aria-hidden />
                   </Link>
-                </motion.li>
+                </m.li>
               );
             })}
-          </motion.ul>
+          </m.ul>
 
-          <motion.div
+          <m.div
             className="relative mt-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0, transition: { delay: 0.45, duration: 0.5, ease } }}
@@ -400,9 +394,9 @@ function MobileMenu({
                 </Link>
               ))}
             </div>
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             className="relative mt-auto space-y-3 pt-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0, transition: { delay: 0.55, duration: 0.5, ease } }}
@@ -419,8 +413,8 @@ function MobileMenu({
                 <Mail className="h-4 w-4" aria-hidden /> {nav.email}
               </a>
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );

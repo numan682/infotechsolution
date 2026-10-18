@@ -1,6 +1,7 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import * as m from "motion/react-m";
+import { AnimatePresence } from "motion/react";
 import { useState, type FormEvent } from "react";
 import { ArrowRight, Check, Mail } from "lucide-react";
 import type { Dict } from "@/content";
@@ -9,7 +10,7 @@ import { site } from "@/lib/site";
 const field =
   "peer w-full rounded-2xl border border-line bg-white px-4 pb-2.5 pt-6 text-[16px] text-ink outline-none transition-all duration-300 placeholder:text-transparent hover:border-accent/40 focus:border-accent focus:ring-4 focus:ring-accent/15";
 const label =
-  "pointer-events-none absolute left-4 top-4 origin-left text-[15px] text-muted transition-all duration-300 peer-focus:top-2 peer-focus:text-[11px] peer-focus:text-accent peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-[11px]";
+  "pointer-events-none absolute left-4 top-4 origin-left text-[15px] text-muted transition-all duration-300 peer-focus:top-2 peer-focus:text-[11px] peer-focus:text-accent-ink peer-[:not(:placeholder-shown)]:top-2 peer-[:not(:placeholder-shown)]:text-[11px]";
 
 /**
  * Static-hosting friendly: builds a pre-filled email and opens the visitor's
@@ -54,7 +55,7 @@ export function ContactForm({ t, services }: { t: Dict["form"]; services: string
     <div className="relative">
       <AnimatePresence mode="wait" initial={false}>
         {sent ? (
-          <motion.div
+          <m.div
             key="sent"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -62,27 +63,27 @@ export function ContactForm({ t, services }: { t: Dict["form"]; services: string
             className="card flex min-h-[520px] flex-col items-center justify-center p-10 text-center"
             role="status"
           >
-            <motion.span
+            <m.span
               initial={{ scale: 0, rotate: -45 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ type: "spring", stiffness: 260, damping: 16, delay: 0.1 }}
               className="bg-sunset flex h-20 w-20 items-center justify-center rounded-full text-white shadow-[0_20px_40px_-12px_rgba(255,107,0,0.7)]"
             >
               <Check className="h-10 w-10" strokeWidth={2.5} aria-hidden />
-            </motion.span>
+            </m.span>
             <h2 className="mt-8 text-[30px] font-bold tracking-[-0.03em] text-ink">{t.sentTitle}</h2>
             <p className="mt-3 max-w-sm leading-relaxed text-muted">
               {t.sentBody}{" "}
-              <a className="font-medium text-accent underline underline-offset-4" href={`mailto:${site.email}`}>
+              <a className="font-medium text-accent-ink underline underline-offset-4" href={`mailto:${site.email}`}>
                 {site.email}
               </a>
             </p>
             <button type="button" onClick={() => setSent(false)} className="btn btn-ghost mt-8">
               {t.again}
             </button>
-          </motion.div>
+          </m.div>
         ) : (
-          <motion.form
+          <m.form
             key="form"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -135,7 +136,7 @@ export function ContactForm({ t, services }: { t: Dict["form"]; services: string
                 ))}
                 <option value={t.other}>{t.other}</option>
               </select>
-              <span aria-hidden className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-accent">
+              <span aria-hidden className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 text-accent-ink">
                 ▾
               </span>
             </div>
@@ -154,7 +155,7 @@ export function ContactForm({ t, services }: { t: Dict["form"]; services: string
                     }`}
                   >
                     {budget === b && (
-                      <motion.span
+                      <m.span
                         layoutId="budget-pill"
                         className="absolute inset-0 -z-10 rounded-full bg-accent shadow-[0_8px_20px_-8px_rgba(255,107,0,0.8)]"
                         transition={{ type: "spring", stiffness: 400, damping: 30 }}
@@ -181,13 +182,13 @@ export function ContactForm({ t, services }: { t: Dict["form"]; services: string
 
             <div className="flex flex-col-reverse items-center justify-between gap-4 pt-2 sm:flex-row">
               <p className="flex items-center gap-2 text-[13px] text-muted">
-                <Mail className="h-4 w-4 shrink-0 text-accent" aria-hidden /> {t.note}
+                <Mail className="h-4 w-4 shrink-0 text-accent-ink" aria-hidden /> {t.note}
               </p>
               <button type="submit" className="btn btn-primary group w-full shrink-0 !px-8 sm:w-auto">
                 {t.submit} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" aria-hidden />
               </button>
             </div>
-          </motion.form>
+          </m.form>
         )}
       </AnimatePresence>
     </div>

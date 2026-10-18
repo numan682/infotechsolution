@@ -1,4 +1,4 @@
-import { Anek_Bangla, Geist, Geist_Mono } from "next/font/google";
+import { Geist } from "next/font/google";
 import type { ReactNode } from "react";
 import "@/app/globals.css";
 import { localeMeta, type Lang } from "@/i18n/config";
@@ -9,9 +9,10 @@ import { SmoothScroll } from "./SmoothScroll";
 import { JsonLd, organizationLd, websiteLd } from "@/components/seo/JsonLd";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"], display: "swap" });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"], display: "swap", preload: false });
-// Only downloaded when Bangla glyphs render, so English pages don't pay for it.
-const anekBangla = Anek_Bangla({ variable: "--font-anek-bangla", subsets: ["bengali"], display: "swap", preload: false });
+
+// Crawlers and visitors without JavaScript still see content whose entrance
+// animation would normally be started by JS (Motion's initial opacity: 0).
+const noJsFallback = `[style*="opacity:0"]:not([aria-hidden]){opacity:1!important;transform:none!important;filter:none!important}`;
 
 /** <html>/<body> wrapper shared by the English and Bangla root layouts. */
 export function RootShell({ lang, children }: { lang: Lang; children: ReactNode }) {
@@ -19,8 +20,11 @@ export function RootShell({ lang, children }: { lang: Lang; children: ReactNode 
   const services = getServices(dict).map((s) => ({ slug: s.slug, title: s.title, short: s.short, icon: s.icon, gradient: s.gradient }));
 
   return (
-    <html lang={localeMeta[lang].htmlLang} className={`${geistSans.variable} ${geistMono.variable} ${anekBangla.variable}`}>
+    <html lang={localeMeta[lang].htmlLang} className={geistSans.variable}>
       <body className="flex min-h-dvh flex-col">
+        <noscript>
+          <style>{noJsFallback}</style>
+        </noscript>
         <JsonLd data={[organizationLd(lang), websiteLd(lang)]} />
         <SmoothScroll>
           <Header lang={lang} nav={dict.nav} services={services} />

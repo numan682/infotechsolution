@@ -50,7 +50,7 @@ export function ProcessView({ lang }: { lang: Lang }) {
                     <ul className="relative mt-8 space-y-3">
                       {m.points.map((p) => (
                         <li key={p} className="flex items-center gap-3 text-[15px]">
-                          <span className={`flex h-5 w-5 items-center justify-center rounded-full ${featured ? "bg-white text-accent" : "bg-accent/10 text-accent"}`}>
+                          <span className={`flex h-5 w-5 items-center justify-center rounded-full ${featured ? "bg-white text-accent-ink" : "bg-accent/10 text-accent-ink"}`}>
                             <Check className="h-3 w-3" strokeWidth={3} aria-hidden />
                           </span>
                           {p}
